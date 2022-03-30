@@ -452,6 +452,8 @@ public class PlayerScript : MonoBehaviour
                     {
                         isGrounded = true;
                         onTopOfWall = true;
+                        onWall = false;
+                        isWallClinging = false;
 
                         ResetDash();
                         dashCount = dashCountValue;
