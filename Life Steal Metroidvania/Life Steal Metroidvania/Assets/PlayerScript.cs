@@ -176,25 +176,25 @@ public class PlayerScript : MonoBehaviour
                 bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
                 bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
-                if (right && Input.GetKeyDown(KeyCode.LeftShift))
+                if (right && Input.GetKeyDown(KeyCode.Z))
                 {
                     Debug.Log("RIGHT");
                     Dash(new Vector2(1, 0));
                 }
 
-                if (left && Input.GetKeyDown(KeyCode.LeftShift))
+                if (left && Input.GetKeyDown(KeyCode.Z))
                 {
                     Debug.Log("LEFT");
                     Dash(new Vector2(-1, 0));
                 }
 
-                if (up && Input.GetKeyDown(KeyCode.LeftShift))
+                if (up && Input.GetKeyDown(KeyCode.Z))
                 {
                     Debug.Log("UP");
                     Dash(new Vector2(0, 1));
                 }
 
-                if (down && Input.GetKeyDown(KeyCode.LeftShift))
+                if (down && Input.GetKeyDown(KeyCode.Z))
                 {
                     Debug.Log("DOWN");
                     Dash(new Vector2(0, -1));
