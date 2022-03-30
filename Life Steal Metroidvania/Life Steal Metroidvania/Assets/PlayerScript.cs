@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
     private Vector2 dashDirection = Vector2.zero;
 
     public int dashCount;
-    public int dashCountValue;
+    
 
     #endregion
 
