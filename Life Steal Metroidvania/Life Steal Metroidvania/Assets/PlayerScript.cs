@@ -94,9 +94,13 @@ public class PlayerScript : MonoBehaviour
 
     private bool takingDamage = false;
 
+    private bool touchingLava;
+
     // Establishing death
     [SerializeField] private bool isPlayerDead;
     #endregion
+
+    private bool beastMode;
 
     [Header("Coyote Time and Jump Buffering")]
     // Hang Time
@@ -123,6 +127,8 @@ public class PlayerScript : MonoBehaviour
         currentHealthValue = totalHealthValue;
         isPlayerDead = false;
         takingDamage = false;
+        beastMode = false;
+        touchingLava = false;
     }
 
 
@@ -348,6 +354,20 @@ public class PlayerScript : MonoBehaviour
         }
         #endregion
 
+        if (Input.GetKeyDown(KeyCode.S) && currentHealthValue > 1 && beastMode == false){
+            ActivateBeastMode();
+        }
+
+        if (beastMode == true){
+            if (currentHealthValue <= 0){
+                beastMode = false;
+            }
+        }
+
+        if (beastMode == true){
+            // damageDealt * 2;
+            // currentHealthValue - 2 * Time.deltaTime;
+        }
     }
 
 
@@ -406,6 +426,15 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    private void ActivateBeastMode(){
+        beastMode = true;
+    }
+
+
+    public void Burn(){
+        // Damage over time code here
+    }
+     
     // Killing and respawing the player
     public void KillPlayer()
     {

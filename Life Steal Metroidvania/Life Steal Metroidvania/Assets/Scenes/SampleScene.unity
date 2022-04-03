@@ -956,7 +956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   jumpHeight: 35
-  dashSpeed: 37
+  dashSpeed: 39
   startDashTime: 0.4
   dashCount: 1
   dashCountValue: 1
