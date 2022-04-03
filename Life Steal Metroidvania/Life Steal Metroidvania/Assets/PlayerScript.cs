@@ -56,7 +56,6 @@ public class PlayerScript : MonoBehaviour
 
     // Establishing wall detection for the wall climb ability
     private bool onWall;
-
     private bool isWallClinging;
 
     #endregion
@@ -78,12 +77,16 @@ public class PlayerScript : MonoBehaviour
 
     public int extraJumpsValue;
 
+    // Glide
+    private bool isGliding;
+
 
     #endregion
 
     private bool onTopOfWall;
 
-    private float gravityScale = 0f;
+    private float gravityScale;
+    private float mass;
 
 
     #region HEALTH_VARIABLES
@@ -122,6 +125,8 @@ public class PlayerScript : MonoBehaviour
         extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         dashTime = startDashTime;
+        gravityScale = 7.5f;
+        mass = 10f;
         onTopOfWall = false;
         hangCounter = hangTime;
         currentHealthValue = totalHealthValue;
@@ -294,6 +299,28 @@ public class PlayerScript : MonoBehaviour
         {
             jumpBufferCount -= Time.deltaTime;
         }
+        
+
+        // Glide Code
+        if (Input.GetKey(KeyCode.UpArrow) && isGrounded == false)
+        {
+            isGliding = true;
+        }
+        else
+        {
+            isGliding = false;
+        }
+
+        if (isGliding == true)
+        {
+            mass = 5f;
+        }
+
+        if (isGliding == false)
+        {
+            mass = 10f;
+        }
+
 
         // Wall Jump + Wall Resource Restoration
         if (onWall == true)
@@ -354,6 +381,8 @@ public class PlayerScript : MonoBehaviour
         }
         #endregion
 
+
+        // Beast Mode Code
         if (Input.GetKeyDown(KeyCode.S) && currentHealthValue > 1 && beastMode == false){
             ActivateBeastMode();
         }
@@ -364,7 +393,8 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (beastMode == true){
+        if (beastMode == true)
+        {
             // damageDealt * 2;
             // currentHealthValue - 2 * Time.deltaTime;
         }
@@ -381,7 +411,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (isDashing == false)
         {
-            facingRight = !facingRight;
+             facingRight = !facingRight;
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
@@ -423,6 +453,10 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
+    }
+
+    private void Glide(){
+        isGliding = true;
     }
 
 
