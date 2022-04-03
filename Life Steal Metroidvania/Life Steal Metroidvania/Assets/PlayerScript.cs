@@ -80,13 +80,13 @@ public class PlayerScript : MonoBehaviour
     // Glide
     private bool isGliding;
 
-
     #endregion
 
     private bool onTopOfWall;
 
     private float gravityScale;
     private float mass;
+
 
 
     #region HEALTH_VARIABLES
@@ -277,6 +277,9 @@ public class PlayerScript : MonoBehaviour
                 isGrounded = false;
             }
         }
+
+     
+
 
 
 
