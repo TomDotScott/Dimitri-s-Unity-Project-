@@ -20,6 +20,9 @@ public class PlayerScript : MonoBehaviour
     // Establishing moveSpeed variable
     [Range(10f, 200f)] public float moveSpeed;
 
+    public float fallSpeed;
+    public float glideDiviser;
+
     // Establishing jump height variable
     [Range(10f, 100f)] public float jumpHeight;
 
@@ -37,26 +40,36 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
     // Used to list abilities
-    public enum ePlayerState // TODO: USE THIS INSTEAD OF THE HUNDREDS OF BOOLS!
+    public enum eGroundState // TODO: USE THIS INSTEAD OF THE HUNDREDS OF BOOLS!
     {
         idle,
         walking,
-        jumping,
         dashing,
         wallClinging,
 
     }
 
+    public enum eAirState {
+        grounded,
+        jumping,
+        gliding,
+    }
+
+
+
+
     [Header("Player State")]
-    public ePlayerState playerState;
+    public eGroundState playerGroundState;
+
+    public eAirState playerAirState;
 
     #region TO_BE_REPLACED_WITH_STATE
     // TODO: To be replaced with Player State stuff in future...
-    private bool isDashing = false;
+    // private bool isDashing = false;
 
     // Establishing wall detection for the wall climb ability
     private bool onWall;
-    private bool isWallClinging;
+    // private bool isWallClinging;
 
     #endregion
 
@@ -70,7 +83,7 @@ public class PlayerScript : MonoBehaviour
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
     // Establishing ground detection for jump and double jump etc
-    private bool isGrounded;
+    // private bool isGrounded;
 
     // Establishing jumping and double jumping abilities
     [SerializeField] private int extraJumps;
@@ -78,7 +91,7 @@ public class PlayerScript : MonoBehaviour
     public int extraJumpsValue;
 
     // Glide
-    private bool isGliding;
+    // private bool isGliding;
 
     #endregion
 
@@ -140,7 +153,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGrounded == true)
+        if (playerAirState == eAirState.grounded)
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
@@ -170,7 +183,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Dash Code
-        if (isGrounded == true)
+        if (playerAirState == eAirState.grounded)
         {
             dashCount = dashCountValue;
         }
@@ -213,7 +226,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (!isDashing)
+                    if (playerGroundState != eGroundState.dashing)
                     {
                         if (facingRight == true)
                         {
@@ -231,7 +244,7 @@ public class PlayerScript : MonoBehaviour
 
                 // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
                 // dashCount 
-                if (isDashing)
+                if (playerGroundState == eGroundState.dashing)
                 {
                     dashCount--;
                 }
@@ -258,7 +271,7 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isGrounded == true)
+            if (playerAirState == eAirState.grounded)
             {
                 Jump();
 
@@ -274,7 +287,7 @@ public class PlayerScript : MonoBehaviour
             else if (hangCounter >= 0)
             {
                 Jump();
-                isGrounded = false;
+                playerAirState = eAirState.jumping;
             }
         }
 
@@ -284,7 +297,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Hang Time (Coyote Time)
-        if (isGrounded == true)
+        if (playerAirState == eAirState.grounded)
         {
             hangCounter = hangTime;
         }
@@ -305,28 +318,30 @@ public class PlayerScript : MonoBehaviour
         
 
         // Glide Code
-        if (Input.GetKey(KeyCode.UpArrow) && isGrounded == false)
+        if (Input.GetKey(KeyCode.UpArrow) &&
+            playerAirState != eAirState.grounded &&
+            playerGroundState != eGroundState.wallClinging)
         {
-            isGliding = true;
+            playerAirState = eAirState.gliding;
+            Vector2 v = rb.velocity;
+            if (v.y > 0){
+            v.y = 0;
+            rb.velocity = v;
+            }
+
+            rb.gravityScale = fallSpeed / glideDiviser;
         }
         else
         {
-            isGliding = false;
+            playerAirState = eAirState.jumping;
+            rb.gravityScale = fallSpeed;
         }
 
-        if (isGliding == true)
-        {
-            mass = 5f;
-        }
-
-        if (isGliding == false)
-        {
-            mass = 10f;
-        }
+       
 
 
         // Wall Jump + Wall Resource Restoration
-        if (onWall == true)
+        if (playerGroundState == eGroundState.wallClinging && Input.GetKey(KeyCode.X))
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
@@ -344,24 +359,26 @@ public class PlayerScript : MonoBehaviour
                 float upMovement = Input.GetAxisRaw("Vertical");
                 rb.velocity = new Vector2(rb.velocity.x, upMovement * moveSpeed);
                 rb.gravityScale = 0f;
+                playerGroundState = eGroundState.wallClinging;
             }
             else
             {
-                rb.gravityScale = 7f;
+                rb.gravityScale = fallSpeed;
             }
         }
         else
         {
-            if (rb.gravityScale == 0f)
+            if (rb.gravityScale == 0)
             {
-                rb.gravityScale = 7;
+                rb.gravityScale = fallSpeed;
             }
         }
 
         // Making player walk at the moveSpeed variable
-        if (isDashing == false)
+        if (playerGroundState != eGroundState.dashing)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+            playerGroundState = eGroundState.walking;
         }
         else
         {
@@ -375,6 +392,8 @@ public class PlayerScript : MonoBehaviour
             {
                 rb.velocity = dashDirection * dashSpeed;
             }
+
+            playerGroundState = eGroundState.dashing;
         }
 
         // Turns around if they change walking direction
@@ -412,7 +431,7 @@ public class PlayerScript : MonoBehaviour
     // Flip functions
     private void Flip()
     {
-        if (isDashing == false)
+        if (playerGroundState != eGroundState.dashing)
         {
              facingRight = !facingRight;
             Vector3 scale = transform.localScale;
@@ -428,7 +447,7 @@ public class PlayerScript : MonoBehaviour
         if (dashCount > 0)
         {
             dashDirection += direction;
-            isDashing = true;
+            playerGroundState = eGroundState.dashing;
         }
     }
 
@@ -437,7 +456,7 @@ public class PlayerScript : MonoBehaviour
     {
         dashDirection = Vector2.zero;
         rb.velocity = Vector2.zero;
-        isDashing = false;
+        playerGroundState = eGroundState.walking;
         ResetDoubleJump();
     }
 
@@ -450,16 +469,16 @@ public class PlayerScript : MonoBehaviour
     // Jump function
     private void Jump()
     {
-        if (!isDashing)
+        if (playerGroundState != eGroundState.dashing)
         {
             rb.velocity = Vector2.up * jumpHeight;
-            isGrounded = false;
+            playerAirState = eAirState.jumping;
         }
 
     }
 
     private void Glide(){
-        isGliding = true;
+        playerAirState = eAirState.gliding;
     }
 
 
@@ -505,7 +524,7 @@ public class PlayerScript : MonoBehaviour
         {
             case "Ground":
                 Debug.Log("Ground Collision Detected");
-                isGrounded = true;
+                playerAirState = eAirState.grounded;
                 ResetDash();
                 dashCount = dashCountValue;
                 break;
@@ -516,10 +535,10 @@ public class PlayerScript : MonoBehaviour
                     collision.GetContacts(contactPoints);
                     if (contactPoints[0].normal.y == 1)
                     {
-                        isGrounded = true;
+                        playerAirState = eAirState.grounded;
                         onTopOfWall = true;
                         onWall = false;
-                        isWallClinging = false;
+                        playerGroundState = eGroundState.walking;
 
                         ResetDash();
                         dashCount = dashCountValue;
@@ -551,7 +570,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (onTopOfWall == true)
             {
-                isGrounded = false;
+              playerAirState = eAirState.jumping;
             }
             onWall = false;
             onTopOfWall = false;
@@ -559,7 +578,7 @@ public class PlayerScript : MonoBehaviour
 
         if (collision.gameObject.tag == "Ground")
         {
-            isGrounded = false;
+            playerAirState = eAirState.jumping;
 
             hangCounter = hangTime;
         }
