@@ -23,6 +23,9 @@ public class PlayerScript : MonoBehaviour
     public float fallSpeed;
     public float glideDiviser;
 
+    [SerializeField] private float glideTime;
+    private float glideTimeCounter;
+
     // Establishing jump height variable
     [Range(10f, 100f)] public float jumpHeight;
 
@@ -315,12 +318,26 @@ public class PlayerScript : MonoBehaviour
         {
             jumpBufferCount -= Time.deltaTime;
         }
-        
+
+
+
+
+
+        if (playerAirState == eAirState.jumping)
+        {
+            glideTimeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            glideTimeCounter = glideTime;
+        }
+
 
         // Glide Code
         if (Input.GetKey(KeyCode.V) &&
             playerAirState != eAirState.grounded &&
-            playerGroundState != eGroundState.wallClinging)
+            playerGroundState != eGroundState.wallClinging &&
+            glideTimeCounter <= 0)
         {
             Debug.Log("Gliding");
             playerAirState = eAirState.gliding;

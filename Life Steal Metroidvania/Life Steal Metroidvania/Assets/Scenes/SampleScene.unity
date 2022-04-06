@@ -955,12 +955,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
+  fallSpeed: 7.5
+  glideDiviser: 5
+  glideTime: 0
   jumpHeight: 35
   dashSpeed: 39
   startDashTime: 0.4
   dashCount: 1
   dashCountValue: 1
-  playerState: 0
+  playerGroundState: 0
+  playerAirState: 0
   extraJumps: 1
   extraJumpsValue: 1
   totalHealthValue: 20
