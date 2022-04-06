@@ -20,14 +20,16 @@ public class PlayerScript : MonoBehaviour
     // Establishing moveSpeed variable
     [Range(10f, 200f)] public float moveSpeed;
 
-    public float fallSpeed;
-    public float glideDiviser;
-
-    [SerializeField] private float glideTime;
-    private float glideTimeCounter;
+ 
 
     // Establishing jump height variable
     [Range(10f, 100f)] public float jumpHeight;
+    private float jumpHeldTime;
+    private float jumpHeldTimeCountdown;
+    public float fallSpeed;
+    public float glideDiviser;
+    [SerializeField] private float glideTime;
+    private float glideTimeCountdown;
 
     // Dash Variables
     [Range(0f, 100f)] public float dashSpeed;
@@ -124,7 +126,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Coyote Time and Jump Buffering")]
     // Hang Time
     [Range(0f, 2f)] public float hangTime = .2f;
-    private float hangCounter;
+    private float hangCountdown;
 
     [Range(0f, 2f)] public float jumpBufferLength = .1f;
     private float jumpBufferCount;
@@ -144,7 +146,7 @@ public class PlayerScript : MonoBehaviour
         gravityScale = 7.5f;
         mass = 10f;
         onTopOfWall = false;
-        hangCounter = hangTime;
+        hangCountdown = hangTime;
         currentHealthValue = totalHealthValue;
         isPlayerDead = false;
         takingDamage = false;
@@ -270,7 +272,7 @@ public class PlayerScript : MonoBehaviour
 
         #region JUMP_CODE
         // Jump Code
-        hangCounter -= Time.deltaTime;
+        hangCountdown -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -287,7 +289,7 @@ public class PlayerScript : MonoBehaviour
                 extraJumps--;
             }
 
-            else if (hangCounter >= 0)
+            else if (hangCountdown >= 0)
             {
                 Jump();
                 playerAirState = eAirState.jumping;
@@ -302,11 +304,11 @@ public class PlayerScript : MonoBehaviour
         // Hang Time (Coyote Time)
         if (playerAirState == eAirState.grounded)
         {
-            hangCounter = hangTime;
+            hangCountdown = hangTime;
         }
         else
         {
-            hangCounter -= Time.deltaTime;
+            hangCountdown -= Time.deltaTime;
         }
 
         // Jump Buffer
@@ -325,11 +327,11 @@ public class PlayerScript : MonoBehaviour
 
         if (playerAirState == eAirState.jumping)
         {
-            glideTimeCounter -= Time.deltaTime;
+            glideTimeCountdown -= Time.deltaTime;
         }
         else
         {
-            glideTimeCounter = glideTime;
+            glideTimeCountdown = glideTime;
         }
 
 
@@ -337,7 +339,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.V) &&
             playerAirState != eAirState.grounded &&
             playerGroundState != eGroundState.wallClinging &&
-            glideTimeCounter <= 0)
+            glideTimeCountdown <= 0)
         {
             Debug.Log("Gliding");
             playerAirState = eAirState.gliding;
@@ -600,7 +602,7 @@ public class PlayerScript : MonoBehaviour
         {
             playerAirState = eAirState.jumping;
 
-            hangCounter = hangTime;
+            hangCountdown = hangTime;
         }
     }
 
