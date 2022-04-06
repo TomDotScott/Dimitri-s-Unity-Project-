@@ -318,10 +318,11 @@ public class PlayerScript : MonoBehaviour
         
 
         // Glide Code
-        if (Input.GetKey(KeyCode.UpArrow) &&
+        if (Input.GetKey(KeyCode.V) &&
             playerAirState != eAirState.grounded &&
             playerGroundState != eGroundState.wallClinging)
         {
+            Debug.Log("Gliding");
             playerAirState = eAirState.gliding;
             Vector2 v = rb.velocity;
             if (v.y > 0){
@@ -333,7 +334,6 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            playerAirState = eAirState.jumping;
             rb.gravityScale = fallSpeed;
         }
 
@@ -375,10 +375,13 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Making player walk at the moveSpeed variable
-        if (playerGroundState != eGroundState.dashing)
-        {
+        if (playerGroundState != eGroundState.dashing){
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-            playerGroundState = eGroundState.walking;
+            if (moveInput == 0){
+                playerGroundState = eGroundState.idle;
+            } else {
+                playerGroundState = eGroundState.walking;
+            }
         }
         else
         {
