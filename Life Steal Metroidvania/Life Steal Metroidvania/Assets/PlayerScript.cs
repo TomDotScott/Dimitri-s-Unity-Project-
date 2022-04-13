@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     // Establishing moveSpeed variable
     [Range(10f, 200f)] public float moveSpeed;
 
- 
+
 
     // Establishing jump height variable
     [Range(10f, 100f)] public float jumpHeight;
@@ -116,6 +116,15 @@ public class PlayerScript : MonoBehaviour
     private bool takingDamage = false;
 
     private bool touchingLava;
+    public bool TouchingLava {
+        get => touchingLava;
+        set {
+            if (value == true){
+                TakeDamage(4);
+            }
+            touchingLava = value;
+         }
+    }
 
     // Establishing death
     [SerializeField] private bool isPlayerDead;
@@ -503,6 +512,14 @@ public class PlayerScript : MonoBehaviour
         playerAirState = eAirState.gliding;
     }
 
+    public void SetAirState(eAirState state){
+        playerAirState = state;
+    }
+
+    public void Teleport(Vector2 teleportPos){
+        gameObject.transform.position = teleportPos;
+    }
+
 
     private void ActivateBeastMode(){
         beastMode = true;
@@ -525,6 +542,11 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealthValue -= damageAmount;
+    }
+
+    // Health Sacrifice Mechanic
+    public void Sacrifice(float healthSacrificeAmount){
+        currentHealthValue -= healthSacrificeAmount;
     }
 
     public float GetPlayerHealth()
@@ -609,6 +631,11 @@ public class PlayerScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit the climbing area");
+        switch (collision.gameObject.tag){
+            case "Lava":
+                TouchingLava = true;
+                break;
+        }
     }
 #endregion
 }

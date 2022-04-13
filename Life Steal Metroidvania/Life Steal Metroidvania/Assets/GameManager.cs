@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public List<Vector2> respawnPoints;
+    public List<GameObject> respawnPoints;
+    public List<GameObject> lavaRespawnPoints;
     public PlayerScript player;
     public Slider healthBar;
 
@@ -18,11 +19,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update(){
         UpdateHealthBar();
+        if (player.TouchingLava){
+            player.Teleport(FindNearestLavaRespawnPoint());
+            player.SetAirState(PlayerScript.eAirState.grounded);
+            player.TouchingLava = false;
+        }
     }
 
 
     void UpdateHealthBar(){
     healthBar.value = player.GetPlayerHealth() / player.GetMaxPlayerHealth();
+    }
+
+    Vector2 FindNearestLavaRespawnPoint(){
+        // TODO: ACTUALLY IMPLEMENT THIS
+        return lavaRespawnPoints[0].transform.position;
+
     }
 }
 
