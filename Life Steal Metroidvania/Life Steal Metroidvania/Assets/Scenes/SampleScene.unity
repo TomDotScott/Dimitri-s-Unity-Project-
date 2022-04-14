@@ -1000,7 +1000,8 @@ MonoBehaviour:
   extraJumps: 1
   extraJumpsValue: 1
   totalHealthValue: 20
-  currentHealthValue: 5
+  currentHealthValue: 20
+  healthSacrificeAmount: 4
   isPlayerDead: 0
   hangTime: 0.4
   jumpBufferLength: 0.1

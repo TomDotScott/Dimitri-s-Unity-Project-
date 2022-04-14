@@ -115,6 +115,8 @@ public class PlayerScript : MonoBehaviour
 
     private bool takingDamage = false;
 
+    [SerializeField] private float healthSacrificeAmount;
+
     private bool touchingLava;
     public bool TouchingLava {
         get => touchingLava;
@@ -303,6 +305,14 @@ public class PlayerScript : MonoBehaviour
                 Jump();
                 playerAirState = eAirState.jumping;
             }
+        }
+
+        if (Input.GetKey(KeyCode.Space) &&
+            extraJumps <= 0 &&
+            playerAirState == eAirState.jumping &&
+            currentHealthValue > 0){
+            //currentHealthValue -= healthSacrificeAmount;
+            //Jump();
         }
 
      
