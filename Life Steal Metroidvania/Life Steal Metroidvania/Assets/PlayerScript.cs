@@ -54,7 +54,8 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    public enum eAirState {
+    public enum eAirState
+    {
         grounded,
         jumping,
         gliding,
@@ -118,14 +119,17 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float healthSacrificeAmount;
 
     private bool touchingLava;
-    public bool TouchingLava {
+    public bool TouchingLava
+    {
         get => touchingLava;
-        set {
-            if (value == true){
+        set
+        {
+            if (value == true)
+            {
                 TakeDamage(4);
             }
             touchingLava = value;
-         }
+        }
     }
 
     // Establishing death
@@ -208,64 +212,56 @@ public class PlayerScript : MonoBehaviour
         // Input for Dash
         if (dashDirection == Vector2.zero)
         {
-            if (dashCount > 0)
+
+            // Cleaning this up so we can use arrows or WASD using Input.GetAxis
+            bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+            bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+            bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+            bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+
+            if (right && Input.GetKeyDown(KeyCode.Z))
             {
-                // Cleaning this up so we can use arrows or WASD using Input.GetAxis
-                bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
-                bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-                bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-                bool down = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+                Dash(new Vector2(1, 0));
+            }
 
-                if (right && Input.GetKeyDown(KeyCode.Z))
-                {
-                    Debug.Log("RIGHT");
-                    Dash(new Vector2(1, 0));
-                }
+            if (left && Input.GetKeyDown(KeyCode.Z))
+            {
+                Dash(new Vector2(-1, 0));
+            }
 
-                if (left && Input.GetKeyDown(KeyCode.Z))
-                {
-                    Debug.Log("LEFT");
-                    Dash(new Vector2(-1, 0));
-                }
+            if (up && Input.GetKeyDown(KeyCode.Z))
+            {
+                Dash(new Vector2(0, 1));
+            }
 
-                if (up && Input.GetKeyDown(KeyCode.Z))
-                {
-                    Debug.Log("UP");
-                    Dash(new Vector2(0, 1));
-                }
+            if (down && Input.GetKeyDown(KeyCode.Z))
+            {
+                Dash(new Vector2(0, -1));
+            }
 
-                if (down && Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (playerGroundState != eGroundState.dashing)
                 {
-                    Debug.Log("DOWN");
-                    Dash(new Vector2(0, -1));
-                }
-
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    if (playerGroundState != eGroundState.dashing)
+                    if (facingRight == true)
                     {
-                        if (facingRight == true)
-                        {
-                            Debug.Log("JUST DASHING RIGHT");
-
-                            Dash(new Vector2(1, 0));
-                        }
-                        else
-                        {
-                            Debug.Log("JUST DASHING LEFT");
-                            Dash(new Vector2(-1, 0));
-                        }
+                        Dash(new Vector2(1, 0));
+                    }
+                    else
+                    {
+                        Dash(new Vector2(-1, 0));
                     }
                 }
+            }
 
-                // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
-                // dashCount 
-                if (playerGroundState == eGroundState.dashing)
-                {
-                    dashCount--;
-                }
+            // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
+            // dashCount 
+            if (playerGroundState == eGroundState.dashing)
+            {
+                dashCount--;
             }
         }
+
 
         else
         {
@@ -307,15 +303,16 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) &&
+        if (Input.GetKeyDown(KeyCode.Space) &&
             extraJumps <= 0 &&
             playerAirState == eAirState.jumping &&
-            currentHealthValue > 0){
-            //currentHealthValue -= healthSacrificeAmount;
-            //Jump();
+            currentHealthValue > 4)
+        {
+            Sacrifice(4);
+            Jump();
         }
 
-     
+
 
 
 
@@ -360,12 +357,12 @@ public class PlayerScript : MonoBehaviour
             playerGroundState != eGroundState.wallClinging &&
             glideTimeCountdown <= 0)
         {
-            Debug.Log("Gliding");
             playerAirState = eAirState.gliding;
             Vector2 v = rb.velocity;
-            if (v.y > 0){
-            v.y = 0;
-            rb.velocity = v;
+            if (v.y > 0)
+            {
+                v.y = 0;
+                rb.velocity = v;
             }
 
             rb.gravityScale = fallSpeed / glideDiviser;
@@ -375,7 +372,7 @@ public class PlayerScript : MonoBehaviour
             rb.gravityScale = fallSpeed;
         }
 
-       
+
 
 
         // Wall Jump + Wall Resource Restoration
@@ -413,20 +410,22 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Making player walk at the moveSpeed variable
-        if (playerGroundState != eGroundState.dashing){
+        if (playerGroundState != eGroundState.dashing)
+        {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-            if (moveInput == 0){
+            if (moveInput == 0)
+            {
                 playerGroundState = eGroundState.idle;
-            } else {
+            }
+            else
+            {
                 playerGroundState = eGroundState.walking;
             }
         }
         else
         {
-            // Debug.Log("DASHING!");
             if (dashDirection.x != 0 && dashDirection.y != 0)
             {
-                Debug.Log("DASHING DIAGONALLY!");
                 rb.velocity = dashDirection * WorkOutDiagonalDashSpeed();
             }
             else
@@ -446,12 +445,15 @@ public class PlayerScript : MonoBehaviour
 
 
         // Beast Mode Code
-        if (Input.GetKeyDown(KeyCode.S) && currentHealthValue > 1 && beastMode == false){
+        if (Input.GetKeyDown(KeyCode.S) && currentHealthValue > 1 && beastMode == false)
+        {
             ActivateBeastMode();
         }
 
-        if (beastMode == true){
-            if (currentHealthValue <= 0){
+        if (beastMode == true)
+        {
+            if (currentHealthValue <= 0)
+            {
                 beastMode = false;
             }
         }
@@ -474,7 +476,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (playerGroundState != eGroundState.dashing)
         {
-             facingRight = !facingRight;
+            facingRight = !facingRight;
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
@@ -489,6 +491,16 @@ public class PlayerScript : MonoBehaviour
         {
             dashDirection += direction;
             playerGroundState = eGroundState.dashing;
+        }
+        else
+        {
+            if (currentHealthValue > 4)
+            {
+                dashDirection += direction;
+                playerGroundState = eGroundState.dashing;
+                Sacrifice(4);
+            }
+
         }
     }
 
@@ -518,28 +530,33 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    private void Glide(){
+    private void Glide()
+    {
         playerAirState = eAirState.gliding;
     }
 
-    public void SetAirState(eAirState state){
+    public void SetAirState(eAirState state)
+    {
         playerAirState = state;
     }
 
-    public void Teleport(Vector2 teleportPos){
+    public void Teleport(Vector2 teleportPos)
+    {
         gameObject.transform.position = teleportPos;
     }
 
 
-    private void ActivateBeastMode(){
+    private void ActivateBeastMode()
+    {
         beastMode = true;
     }
 
 
-    public void Burn(){
+    public void Burn()
+    {
         // Damage over time code here
     }
-     
+
     // Killing and respawing the player
     public void KillPlayer()
     {
@@ -555,8 +572,9 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Health Sacrifice Mechanic
-    public void Sacrifice(float healthSacrificeAmount){
-        currentHealthValue -= healthSacrificeAmount;
+    public void Sacrifice(float healthSacrificeAmount)
+    {
+        TakeDamage(healthSacrificeAmount);
     }
 
     public float GetPlayerHealth()
@@ -577,7 +595,6 @@ public class PlayerScript : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Ground":
-                Debug.Log("Ground Collision Detected");
                 playerAirState = eAirState.grounded;
                 ResetDash();
                 dashCount = dashCountValue;
@@ -624,7 +641,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (onTopOfWall == true)
             {
-              playerAirState = eAirState.jumping;
+                playerAirState = eAirState.jumping;
             }
             onWall = false;
             onTopOfWall = false;
@@ -641,11 +658,12 @@ public class PlayerScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit the climbing area");
-        switch (collision.gameObject.tag){
+        switch (collision.gameObject.tag)
+        {
             case "Lava":
                 TouchingLava = true;
                 break;
         }
     }
-#endregion
+    #endregion
 }
