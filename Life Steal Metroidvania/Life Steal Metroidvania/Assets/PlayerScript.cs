@@ -263,6 +263,16 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (playerAirState == eAirState.gliding)
+            {
+                if (extraJumps > 0)
+                {
+                    Jump();
+                    extraJumps--;
+                }
+
+            }
+
             if (playerAirState == eAirState.grounded)
             {
                 Jump();
@@ -504,6 +514,7 @@ public class PlayerScript : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpHeight;
             playerAirState = eAirState.jumping;
+            glideTimeCountdown = glideTime;
         }
 
     }
