@@ -180,26 +180,6 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        //// Hang Time (Coyote Time)
-        //if (isGrounded == true)
-        //{
-        //    hangCounter = hangTime;
-        //}
-        //else
-        //{
-        //    hangCounter -= Time.deltaTime;
-        //}
-
-        //// Jump Buffer
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    jumpBufferCount = jumpBufferLength;
-        //}
-        //else
-        //{
-        //    jumpBufferCount -= Time.deltaTime;
-        //}
-
 
 
         // Dash Code
@@ -298,6 +278,7 @@ public class PlayerScript : MonoBehaviour
 
             else if (hangCountdown >= 0)
             {
+                Debug.Log("Hang Time");
                 Jump();
                 playerAirState = eAirState.jumping;
             }
@@ -313,22 +294,20 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-
-
-
-
         // Hang Time (Coyote Time)
         if (playerAirState == eAirState.grounded)
         {
+            Debug.Log("Resetting Timer");
             hangCountdown = hangTime;
         }
         else
         {
             hangCountdown -= Time.deltaTime;
+            //Debug.Log(hangCountdown);
         }
 
         // Jump Buffer
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             jumpBufferCount = jumpBufferLength;
         }
@@ -340,18 +319,15 @@ public class PlayerScript : MonoBehaviour
 
 
 
+        // Glide Code   
 
         if (playerAirState == eAirState.jumping)
         {
             glideTimeCountdown -= Time.deltaTime;
         }
-        else
-        {
-            glideTimeCountdown = glideTime;
-        }
+        
 
 
-        // Glide Code
         if (Input.GetKey(KeyCode.V) &&
             playerAirState != eAirState.grounded &&
             playerGroundState != eGroundState.wallClinging &&
@@ -365,10 +341,12 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = v;
             }
 
+            Debug.Log("Glide Gravity");
             rb.gravityScale = fallSpeed / glideDiviser;
         }
         else
         {
+            Debug.Log("Normal Gravity");
             rb.gravityScale = fallSpeed;
         }
 
@@ -598,6 +576,8 @@ public class PlayerScript : MonoBehaviour
                 playerAirState = eAirState.grounded;
                 ResetDash();
                 dashCount = dashCountValue;
+                glideTimeCountdown = glideTime;             
+
                 break;
             case "Wall":
                 {
