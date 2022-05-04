@@ -36,6 +36,10 @@ public class PlayerScript : MonoBehaviour
 
     [Range(0f, 1f)] public float startDashTime;
     private float dashTime = 0f;
+    private float dashIntangibilityCountdown;
+    [SerializeField] private float dashIntangibilityCountdownTime;
+
+    private bool intangibleDash;
 
     private Vector2 dashDirection = Vector2.zero;
 
@@ -167,6 +171,7 @@ public class PlayerScript : MonoBehaviour
         takingDamage = false;
         beastMode = false;
         touchingLava = false;
+        intangibleDash = true;
     }
 
 
@@ -242,18 +247,28 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-
+        
         else
         {
+            // When we reset dash, resets intangible dash countdown
             if (dashTime <= 0)
             {
                 dashTime = startDashTime;
+                Debug.Log("Resetting Intangible Dash");
+                intangibleDash = false;
+                dashIntangibilityCountdown = dashIntangibilityCountdownTime;
                 ResetDash();
             }
             else
             {
                 dashTime -= Time.deltaTime;
             }
+        }
+
+        if (playerGroundState != eGroundState.dashing)
+        {
+            dashIntangibilityCountdown -= Time.deltaTime;
+            Debug.Log("Cooling Down Intangible Dash");
         }
         #endregion
 
@@ -307,7 +322,7 @@ public class PlayerScript : MonoBehaviour
         // Hang Time (Coyote Time)
         if (playerAirState == eAirState.grounded)
         {
-            Debug.Log("Resetting Timer");
+            // Debug.Log("Resetting Timer");
             hangCountdown = hangTime;
         }
         else
@@ -351,12 +366,12 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = v;
             }
 
-            Debug.Log("Glide Gravity");
+            //Debug.Log("Glide Gravity");
             rb.gravityScale = fallSpeed / glideDiviser;
         }
         else
         {
-            Debug.Log("Normal Gravity");
+            //Debug.Log("Normal Gravity");
             rb.gravityScale = fallSpeed;
         }
 
@@ -475,10 +490,12 @@ public class PlayerScript : MonoBehaviour
     // Dash function
     private void Dash(Vector2 direction)
     {
+        bool hasDashed = false;
         if (dashCount > 0)
         {
             dashDirection += direction;
             playerGroundState = eGroundState.dashing;
+            hasDashed = true;
         }
         else
         {
@@ -486,7 +503,18 @@ public class PlayerScript : MonoBehaviour
             {
                 dashDirection += direction;
                 playerGroundState = eGroundState.dashing;
+                hasDashed = true;
                 Sacrifice(4);
+            }
+
+        }
+
+        if (hasDashed == true)
+        {
+            if (dashIntangibilityCountdown <= 0f)
+            {
+                intangibleDash = true;
+                Debug.Log("Intangible Dash!!!!!");
             }
 
         }
@@ -620,7 +648,17 @@ public class PlayerScript : MonoBehaviour
                 }
             case "Enemy":
                 Debug.Log("Enemy Collision Detected");
-                TakeDamage(totalHealthValue / 10f);
+                if (intangibleDash == true && playerGroundState == eGroundState.dashing){
+                    collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                }
+
+                else {
+
+                    collision.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                    TakeDamage(totalHealthValue / 10f);
+
+                }
+
                 break;
         }
     }
