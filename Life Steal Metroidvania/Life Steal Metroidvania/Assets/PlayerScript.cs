@@ -38,6 +38,8 @@ public class PlayerScript : MonoBehaviour
     private float dashTime = 0f;
     private float dashIntangibilityCountdown;
     [SerializeField] private float dashIntangibilityCountdownTime;
+    public LayerMask playerLayer;
+    public LayerMask intangiblePlayerLayer;
 
     private bool intangibleDash;
 
@@ -256,6 +258,7 @@ public class PlayerScript : MonoBehaviour
                 dashTime = startDashTime;
                 Debug.Log("Resetting Intangible Dash");
                 intangibleDash = false;
+                gameObject.layer = LayerMask.NameToLayer("Player");
                 dashIntangibilityCountdown = dashIntangibilityCountdownTime;
                 ResetDash();
             }
@@ -514,7 +517,8 @@ public class PlayerScript : MonoBehaviour
             if (dashIntangibilityCountdown <= 0f)
             {
                 intangibleDash = true;
-                Debug.Log("Intangible Dash!!!!!");
+                gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer");
+                Debug.Log("Intangible Dash");
             }
 
         }
@@ -648,13 +652,7 @@ public class PlayerScript : MonoBehaviour
                 }
             case "Enemy":
                 Debug.Log("Enemy Collision Detected");
-                if (intangibleDash == true && playerGroundState == eGroundState.dashing){
-                    collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                }
-
-                else {
-
-                    collision.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                if (intangibleDash == false){
                     TakeDamage(totalHealthValue / 10f);
 
                 }
