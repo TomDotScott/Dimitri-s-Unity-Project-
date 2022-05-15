@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour
     // Variable Uses
     // Int (Integer) - Used when you need a whole number
     // Float - Used when you need a full number or a decimal. Integer is faster, so we only use float when we NEED access to a decimal
-    // Bool (Bullion) - Used when you need true or false
+    // Bool (Boolean) - Used when you need true or false
     // String - Used when you need text
     // Variable (Var) - Can be used in any of the above circumstances
 
@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
     private float jumpHeldTime;
     private float jumpHeldTimeCountdown;
     public float fallSpeed;
-    public float glideDiviser;
+    public float glideDivisor;
     [SerializeField] private float glideTime;
     private float glideTimeCountdown;
 
@@ -48,42 +48,31 @@ public class PlayerScript : MonoBehaviour
     public int dashCount;
     public int dashCountValue;
 
+    // Establishing wall detection for the wall climb ability
+    private bool onWall;
+
     #endregion
 
     // Used to list abilities
-    public enum eGroundState // TODO: USE THIS INSTEAD OF THE HUNDREDS OF BOOLS!
+    public enum eMovementState
     {
-        idle,
-        walking,
-        dashing,
-        wallClinging,
-
+        Idle,
+        Moving,
+        Dashing,
+        WallClinging,
     }
 
-    public enum eAirState
+    public enum eAerialState
     {
-        grounded,
-        jumping,
-        gliding,
+        Grounded,
+        Jumping,
+        Gliding,
     }
-
-
-
 
     [Header("Player State")]
-    public eGroundState playerGroundState;
+    public eMovementState playerMovementState;
 
-    public eAirState playerAirState;
-
-    #region TO_BE_REPLACED_WITH_STATE
-    // TODO: To be replaced with Player State stuff in future...
-    // private bool isDashing = false;
-
-    // Establishing wall detection for the wall climb ability
-    private bool onWall;
-    // private bool isWallClinging;
-
-    #endregion
+    public eAerialState playerAerialState;
 
     // Establishing the Rigidbody variable
     private Rigidbody2D rb;
@@ -94,25 +83,13 @@ public class PlayerScript : MonoBehaviour
 
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
-    // Establishing ground detection for jump and double jump etc
-    // private bool isGrounded;
-
     // Establishing jumping and double jumping abilities
     [SerializeField] private int extraJumps;
 
     public int extraJumpsValue;
-
-    // Glide
-    // private bool isGliding;
-
     #endregion
 
     private bool onTopOfWall;
-
-    private float gravityScale;
-    private float mass;
-
-
 
     #region HEALTH_VARIABLES
     [Header("Player Health")]
@@ -121,8 +98,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float currentHealthValue;
 
     private bool takingDamage = false;
-
-    [SerializeField] private float healthSacrificeAmount;
 
     private bool touchingLava;
     public bool TouchingLava
@@ -164,8 +139,6 @@ public class PlayerScript : MonoBehaviour
         extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         dashTime = startDashTime;
-        gravityScale = 7.5f;
-        mass = 10f;
         onTopOfWall = false;
         hangCountdown = hangTime;
         currentHealthValue = totalHealthValue;
@@ -180,17 +153,14 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerAirState == eAirState.grounded)
+        if (playerAerialState == eAerialState.Grounded)
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
         }
 
-
-
-
         // Dash Code
-        if (playerAirState == eAirState.grounded)
+        if (playerAerialState == eAerialState.Grounded)
         {
             dashCount = dashCountValue;
         }
@@ -199,8 +169,7 @@ public class PlayerScript : MonoBehaviour
         // Input for Dash
         if (dashDirection == Vector2.zero)
         {
-
-            // Cleaning this up so we can use arrows or WASD using Input.GetAxis
+            // TODO: Replace these with the input axes or with button names for clarity and modifyability!
             bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
             bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
             bool up = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
@@ -228,7 +197,7 @@ public class PlayerScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (playerGroundState != eGroundState.dashing)
+                if (playerMovementState != eMovementState.Dashing)
                 {
                     if (facingRight == true)
                     {
@@ -243,7 +212,7 @@ public class PlayerScript : MonoBehaviour
 
             // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
             // dashCount 
-            if (playerGroundState == eGroundState.dashing)
+            if (playerMovementState == eMovementState.Dashing)
             {
                 dashCount--;
             }
@@ -258,7 +227,7 @@ public class PlayerScript : MonoBehaviour
                 dashTime = startDashTime;
                 Debug.Log("Resetting Intangible Dash");
                 intangibleDash = false;
-                gameObject.layer = LayerMask.NameToLayer("Player");
+                gameObject.layer = LayerMask.NameToLayer("Player"); // Set the layer back to the normal collision layer 
                 dashIntangibilityCountdown = dashIntangibilityCountdownTime;
                 ResetDash();
             }
@@ -268,10 +237,9 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (playerGroundState != eGroundState.dashing)
+        if (playerMovementState != eMovementState.Dashing)
         {
             dashIntangibilityCountdown -= Time.deltaTime;
-            Debug.Log("Cooling Down Intangible Dash");
         }
         #endregion
 
@@ -281,41 +249,36 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (playerAirState == eAirState.gliding)
-            {
-                if (extraJumps > 0)
-                {
-                    Jump();
-                    extraJumps--;
-                }
-
-            }
-
-            if (playerAirState == eAirState.grounded)
-            {
-                Jump();
-
-
-            }
-
-            else if (extraJumps > 0)
+            // If we're gliding, we want to be able to use our double jump
+            if (playerAerialState == eAerialState.Gliding && extraJumps > 0)
             {
                 Jump();
                 extraJumps--;
             }
 
+            if (playerAerialState == eAerialState.Grounded)
+            {
+                // Normal jump if we're on the ground
+                Jump();
+            }
+            else if (extraJumps > 0)
+            {
+                // Use up our double jump!
+                Jump();
+                extraJumps--;
+            }
             else if (hangCountdown >= 0)
             {
-                Debug.Log("Hang Time");
                 Jump();
-                playerAirState = eAirState.jumping;
+                playerAerialState = eAerialState.Jumping;
             }
         }
 
+        // If we run out of jumps and still want to, sacrifice some health
         if (Input.GetKeyDown(KeyCode.Space) &&
             extraJumps <= 0 &&
-            playerAirState == eAirState.jumping &&
-            currentHealthValue > 4)
+            playerAerialState == eAerialState.Jumping &&
+            currentHealthValue > 4) // TODO: Change these Fours to be in one variable, this will be very annoying if we want to change all of them
         {
             Sacrifice(4);
             Jump();
@@ -323,15 +286,13 @@ public class PlayerScript : MonoBehaviour
 
 
         // Hang Time (Coyote Time)
-        if (playerAirState == eAirState.grounded)
+        if (playerAerialState == eAerialState.Grounded)
         {
-            // Debug.Log("Resetting Timer");
             hangCountdown = hangTime;
         }
         else
         {
             hangCountdown -= Time.deltaTime;
-            //Debug.Log(hangCountdown);
         }
 
         // Jump Buffer
@@ -349,7 +310,7 @@ public class PlayerScript : MonoBehaviour
 
         // Glide Code   
 
-        if (playerAirState == eAirState.jumping)
+        if (playerAerialState == eAerialState.Jumping)
         {
             glideTimeCountdown -= Time.deltaTime;
         }
@@ -357,11 +318,12 @@ public class PlayerScript : MonoBehaviour
 
 
         if (Input.GetKey(KeyCode.V) &&
-            playerAirState != eAirState.grounded &&
-            playerGroundState != eGroundState.wallClinging &&
+            playerAerialState != eAerialState.Grounded &&
+            playerMovementState != eMovementState.WallClinging &&
             glideTimeCountdown <= 0)
         {
-            playerAirState = eAirState.gliding;
+            // If we're jumping and we glide, we cut off the Upwards velocity
+            playerAerialState = eAerialState.Gliding;
             Vector2 v = rb.velocity;
             if (v.y > 0)
             {
@@ -369,12 +331,10 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = v;
             }
 
-            //Debug.Log("Glide Gravity");
-            rb.gravityScale = fallSpeed / glideDiviser;
+            rb.gravityScale = fallSpeed / glideDivisor;
         }
         else
         {
-            //Debug.Log("Normal Gravity");
             rb.gravityScale = fallSpeed;
         }
 
@@ -382,7 +342,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Wall Jump + Wall Resource Restoration
-        if (playerGroundState == eGroundState.wallClinging && Input.GetKey(KeyCode.X))
+        if (playerMovementState == eMovementState.WallClinging && Input.GetKey(KeyCode.X))
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
@@ -400,7 +360,7 @@ public class PlayerScript : MonoBehaviour
                 float upMovement = Input.GetAxisRaw("Vertical");
                 rb.velocity = new Vector2(rb.velocity.x, upMovement * moveSpeed);
                 rb.gravityScale = 0f;
-                playerGroundState = eGroundState.wallClinging;
+                playerMovementState = eMovementState.WallClinging;
             }
             else
             {
@@ -416,16 +376,16 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Making player walk at the moveSpeed variable
-        if (playerGroundState != eGroundState.dashing)
+        if (playerMovementState != eMovementState.Dashing)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
             if (moveInput == 0)
             {
-                playerGroundState = eGroundState.idle;
+                playerMovementState = eMovementState.Idle;
             }
             else
             {
-                playerGroundState = eGroundState.walking;
+                playerMovementState = eMovementState.Moving;
             }
         }
         else
@@ -439,7 +399,7 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = dashDirection * dashSpeed;
             }
 
-            playerGroundState = eGroundState.dashing;
+            playerMovementState = eMovementState.Dashing;
         }
 
         // Turns around if they change walking direction
@@ -474,30 +434,30 @@ public class PlayerScript : MonoBehaviour
 
     private float WorkOutDiagonalDashSpeed()
     {
-        return Mathf.Sqrt((dashSpeed * dashSpeed) / 2); ;
+        return Mathf.Sqrt((dashSpeed * dashSpeed) / 2); // We use Pythagoras to work out the diagonal distance...
     }
 
     // Flip functions
     private void Flip()
     {
-        if (playerGroundState != eGroundState.dashing)
+        if (playerMovementState != eMovementState.Dashing)
         {
             facingRight = !facingRight;
             Vector3 scale = transform.localScale;
-            scale.x *= -1;
+            scale.x *= -1; // Making the X Scale negative, flips the pixels horizontally
             transform.localScale = scale;
         }
 
     }
 
     // Dash function
-    private void Dash(Vector2 direction)
+    private void Dash(Vector2 direction) // Direction is a Vector2 to allow movement in all 4 quadrants
     {
-        bool hasDashed = false;
+        bool hasDashed = false; // we want to track if our dash was successful for the intangibility...
         if (dashCount > 0)
         {
             dashDirection += direction;
-            playerGroundState = eGroundState.dashing;
+            playerMovementState = eMovementState.Dashing;
             hasDashed = true;
         }
         else
@@ -505,22 +465,17 @@ public class PlayerScript : MonoBehaviour
             if (currentHealthValue > 4)
             {
                 dashDirection += direction;
-                playerGroundState = eGroundState.dashing;
+                playerMovementState = eMovementState.Dashing;
                 hasDashed = true;
                 Sacrifice(4);
             }
 
         }
 
-        if (hasDashed == true)
+        if (hasDashed == true && dashIntangibilityCountdown <= 0f)
         {
-            if (dashIntangibilityCountdown <= 0f)
-            {
-                intangibleDash = true;
-                gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer");
-                Debug.Log("Intangible Dash");
-            }
-
+            intangibleDash = true;
+            gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer"); // Swap to the physics layer we created that doesn't let us collide with enemies - to view the layers go to... Edit->Project Settings->Physics2D
         }
     }
 
@@ -529,7 +484,7 @@ public class PlayerScript : MonoBehaviour
     {
         dashDirection = Vector2.zero;
         rb.velocity = Vector2.zero;
-        playerGroundState = eGroundState.walking;
+        playerMovementState = eMovementState.Moving;
         ResetDoubleJump();
     }
 
@@ -542,10 +497,10 @@ public class PlayerScript : MonoBehaviour
     // Jump function
     private void Jump()
     {
-        if (playerGroundState != eGroundState.dashing)
+        if (playerMovementState != eMovementState.Dashing)
         {
             rb.velocity = Vector2.up * jumpHeight;
-            playerAirState = eAirState.jumping;
+            playerAerialState = eAerialState.Jumping;
             glideTimeCountdown = glideTime;
         }
 
@@ -553,12 +508,12 @@ public class PlayerScript : MonoBehaviour
 
     private void Glide()
     {
-        playerAirState = eAirState.gliding;
+        playerAerialState = eAerialState.Gliding;
     }
 
-    public void SetAirState(eAirState state)
+    public void SetAirState(eAerialState state)
     {
-        playerAirState = state;
+        playerAerialState = state;
     }
 
     public void Teleport(Vector2 teleportPos)
@@ -578,7 +533,7 @@ public class PlayerScript : MonoBehaviour
         // Damage over time code here
     }
 
-    // Killing and respawing the player
+    // Killing the player and triggering a respawn
     public void KillPlayer()
     {
         isPlayerDead = true;
@@ -613,10 +568,11 @@ public class PlayerScript : MonoBehaviour
     // OnCollisionEnter is a Unity Event that gets called the first frame a collision happens between two objects.
     private void OnCollisionEnter2D(Collision2D collision) // Collision is an input for our function. It exists only in CollisionEnter2D, making it a local variable //
     {
+        // Switch-Case is like if-else but for SCOPED elements (i.e. things that can be immediately jumped to, like enum values, strings or integers)
         switch (collision.gameObject.tag)
         {
             case "Ground":
-                playerAirState = eAirState.grounded;
+                playerAerialState = eAerialState.Grounded;
                 ResetDash();
                 dashCount = dashCountValue;
                 glideTimeCountdown = glideTime;             
@@ -629,10 +585,10 @@ public class PlayerScript : MonoBehaviour
                     collision.GetContacts(contactPoints);
                     if (contactPoints[0].normal.y == 1)
                     {
-                        playerAirState = eAirState.grounded;
+                        playerAerialState = eAerialState.Grounded;
                         onTopOfWall = true;
                         onWall = false;
-                        playerGroundState = eGroundState.walking;
+                        playerMovementState = eMovementState.Moving;
 
                         ResetDash();
                         dashCount = dashCountValue;
@@ -661,14 +617,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-
+    // The opposite of OnCollisionEnter, OnCollisionExit gets called when the object that collided
+    // with the gameobject with this script attached is no longer colliding
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
             if (onTopOfWall == true)
             {
-                playerAirState = eAirState.jumping;
+                playerAerialState = eAerialState.Jumping;
             }
             onWall = false;
             onTopOfWall = false;
@@ -676,12 +633,15 @@ public class PlayerScript : MonoBehaviour
 
         if (collision.gameObject.tag == "Ground")
         {
-            playerAirState = eAirState.jumping;
+            playerAerialState = eAerialState.Jumping;
 
             hangCountdown = hangTime;
         }
     }
 
+    // On Trigger gets called when a gameobject whose collider is marked 'isTrigger' touches the 
+    // object with this script attached. It's good for setting up in game events, such as hitting death boxes
+    // or checkpoints
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit the climbing area");
