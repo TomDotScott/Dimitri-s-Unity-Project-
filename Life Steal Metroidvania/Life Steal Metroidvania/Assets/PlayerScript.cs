@@ -22,10 +22,6 @@ public class PlayerScript : MonoBehaviour
 
 
 
-    // Establishing jump height variable
-    [Range(10f, 100f)] public float jumpHeight;
-    private float jumpHeldTime;
-    private float jumpHeldTimeCountdown;
     public float fallSpeed;
     public float glideDivisor;
     [SerializeField] private float glideTime;
@@ -83,6 +79,18 @@ public class PlayerScript : MonoBehaviour
 
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
+    // The jump curve will describe the y velocity for the duration of the jump...
+    [SerializeField] private AnimationCurve jumpCurve;
+
+    // The jump height is the maximum point that out jump can reach
+    [Range(10f, 100f)] public float jumpHeight;
+
+    // Jump Duration describes the total amount of time we want our character to be in the air for
+    [SerializeField] private float jumpDuration;
+
+    // Air time describes the amount of time that the player has been in the air for this jump
+    private float airTime;
+
     // Establishing jumping and double jumping abilities
     [SerializeField] private int extraJumps;
 
@@ -218,7 +226,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        
+
         else
         {
             // When we reset dash, resets intangible dash countdown
@@ -306,15 +314,28 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-
-
-        // Glide Code   
-
         if (playerAerialState == eAerialState.Jumping)
         {
             glideTimeCountdown -= Time.deltaTime;
+
+            // Add to our air time
+            airTime += Time.deltaTime;
+
+            // Work out how much velocity we need to give the player based on our curve...
+            // We want the minimum of our percentage and 1 (can't go above 100% here!)
+            float jumpPercentage = Mathf.Min(airTime / jumpDuration, 1.0f);
+
+            // Next, grab the value from the y-axis based on how much of the jump we have completed...
+            float curveY = jumpCurve.Evaluate(jumpPercentage);
+
+            // Finally, apply the upwards velocity equal to the y value from our curve...
+            rb.velocity = Vector2.up * jumpHeight * curveY;
         }
-        
+        else
+        {
+            airTime = 0.0f;
+        }
+
 
 
         if (Input.GetKey(KeyCode.V) &&
@@ -499,11 +520,9 @@ public class PlayerScript : MonoBehaviour
     {
         if (playerMovementState != eMovementState.Dashing)
         {
-            rb.velocity = Vector2.up * jumpHeight;
             playerAerialState = eAerialState.Jumping;
             glideTimeCountdown = glideTime;
         }
-
     }
 
     private void Glide()
@@ -575,7 +594,7 @@ public class PlayerScript : MonoBehaviour
                 playerAerialState = eAerialState.Grounded;
                 ResetDash();
                 dashCount = dashCountValue;
-                glideTimeCountdown = glideTime;             
+                glideTimeCountdown = glideTime;
 
                 break;
             case "Wall":
@@ -608,7 +627,8 @@ public class PlayerScript : MonoBehaviour
                 }
             case "Enemy":
                 Debug.Log("Enemy Collision Detected");
-                if (intangibleDash == false){
+                if (intangibleDash == false)
+                {
                     TakeDamage(totalHealthValue / 10f);
 
                 }
