@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         UpdateHealthBar();
         if (player.TouchingLava){
             player.Teleport(FindNearestLavaRespawnPoint());
-            player.SetAirState(PlayerScript.eAerialState.grounded);
+            player.SetAirState(PlayerScript.eAerialState.Grounded);
             player.TouchingLava = false;
         }
     }
