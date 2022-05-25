@@ -687,5 +687,13 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
+
+    private void OnGUI()
+    {
+        GUI.color = Color.red;
+        var rect = new Rect(0, 0, 100, 50);
+        GUI.Label(rect, "Movement State:" + playerMovementState.ToString() + "/nAerial State:" + playerAerialState.ToString());
+    }
+
     #endregion
 }

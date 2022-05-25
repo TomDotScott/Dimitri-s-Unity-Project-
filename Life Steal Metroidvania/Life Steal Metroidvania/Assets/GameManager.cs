@@ -18,6 +18,21 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+
+#if DEBUG
+        if (Input.GetKeyDown(KeyCode.T)){
+            if (Time.timeScale == 1.0f){
+            Time.timeScale = 0.5f;
+
+            }
+
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
+        }
+#endif
+
         UpdateHealthBar();
         if (player.TouchingLava){
             player.Teleport(FindNearestLavaRespawnPoint());
