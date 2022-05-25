@@ -964,7 +964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   fallSpeed: 7.5
-  glideDivisor: 0
+  glideDivisor: 10
   glideTime: 0.4
   dashSpeed: 39
   startDashTime: 0.4
@@ -1012,8 +1012,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 35
-  jumpDuration: 0
+  jumpHeight: 39
+  jumpDuration: 0.4
   extraJumps: 1
   extraJumpsValue: 1
   totalHealthValue: 20

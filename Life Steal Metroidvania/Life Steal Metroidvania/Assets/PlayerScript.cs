@@ -62,6 +62,7 @@ public class PlayerScript : MonoBehaviour
     {
         Grounded,
         Jumping,
+        Falling,
         Gliding,
     }
 
@@ -316,26 +317,40 @@ public class PlayerScript : MonoBehaviour
 
         if (playerAerialState == eAerialState.Jumping)
         {
-            glideTimeCountdown -= Time.deltaTime;
 
-            // Add to our air time
-            airTime += Time.deltaTime;
+            if (Input.GetKey(KeyCode.Space) && airTime <= jumpDuration)
+            {
 
-            // Work out how much velocity we need to give the player based on our curve...
-            // We want the minimum of our percentage and 1 (can't go above 100% here!)
-            float jumpPercentage = Mathf.Min(airTime / jumpDuration, 1.0f);
 
-            // Next, grab the value from the y-axis based on how much of the jump we have completed...
-            float curveY = jumpCurve.Evaluate(jumpPercentage);
 
-            // Finally, apply the upwards velocity equal to the y value from our curve...
-            rb.velocity = Vector2.up * jumpHeight * curveY;
+                // Add to our air time
+                airTime += Time.deltaTime;
+
+                // Work out how much velocity we need to give the player based on our curve...
+                // We want the minimum of our percentage and 1 (can't go above 100% here!)
+                float jumpPercentage = Mathf.Min(airTime / jumpDuration, 1.0f);
+
+                // Next, grab the value from the y-axis based on how much of the jump we have completed...
+                float curveY = jumpCurve.Evaluate(jumpPercentage);
+
+                // Finally, apply the upwards velocity equal to the y value from our curve...
+                rb.velocity = Vector2.up * jumpHeight * curveY;
+
+            }
+
+            else
+            {
+                playerAerialState = eAerialState.Falling;
+            }
         }
         else
         {
             airTime = 0.0f;
         }
 
+        if (playerAerialState != eAerialState.Grounded){
+            glideTimeCountdown -= Time.deltaTime;
+        }
 
 
         if (Input.GetKey(KeyCode.V) &&
