@@ -349,10 +349,11 @@ public class PlayerScript : MonoBehaviour
             airTime = 0.0f;
         }
 
+
+        // Glide Code
         if (playerAerialState != eAerialState.Grounded){
             glideTimeCountdown -= Time.deltaTime;
         }
-
 
         if (Input.GetKey(KeyCode.V) &&
             playerAerialState != eAerialState.Grounded &&
@@ -372,6 +373,11 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            if (Input.GetKeyUp(KeyCode.V))
+            {
+                playerAerialState = eAerialState.Falling;
+            }
+
             rb.gravityScale = fallSpeed;
         }
 
@@ -379,7 +385,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Wall Jump + Wall Resource Restoration
-        if (playerMovementState == eMovementState.WallClinging && Input.GetKey(KeyCode.X))
+        if (playerMovementState == eMovementState.WallClinging)
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
@@ -389,19 +395,28 @@ public class PlayerScript : MonoBehaviour
         #region MOVEMENT_CODE
         // Moving input
         float moveInput = Input.GetAxisRaw("Horizontal");
+        float upMovement = Input.GetAxisRaw("Vertical");
 
         if (onWall == true)
         {
             if (Input.GetKey(KeyCode.X))
             {
-                float upMovement = Input.GetAxisRaw("Vertical");
                 rb.velocity = new Vector2(rb.velocity.x, upMovement * moveSpeed);
                 rb.gravityScale = 0f;
                 playerMovementState = eMovementState.WallClinging;
             }
             else
             {
-                rb.gravityScale = fallSpeed;
+                if (playerAerialState == eAerialState.Gliding)
+                {
+                    rb.gravityScale = fallSpeed / glideDivisor;
+                }
+                else
+                {
+                    rb.gravityScale = fallSpeed;
+                }
+
+                    playerMovementState = eMovementState.Idle;
             }
         }
         else
@@ -415,14 +430,17 @@ public class PlayerScript : MonoBehaviour
         // Making player walk at the moveSpeed variable
         if (playerMovementState != eMovementState.Dashing)
         {
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-            if (moveInput == 0)
+            if (playerMovementState != eMovementState.WallClinging)
             {
-                playerMovementState = eMovementState.Idle;
-            }
-            else
-            {
-                playerMovementState = eMovementState.Moving;
+                rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+                if (moveInput == 0 && upMovement == 0)
+                {
+                    playerMovementState = eMovementState.Idle;
+                }
+                else
+                {
+                    playerMovementState = eMovementState.Moving;
+                }
             }
         }
         else
@@ -477,7 +495,7 @@ public class PlayerScript : MonoBehaviour
     // Flip functions
     private void Flip()
     {
-        if (playerMovementState != eMovementState.Dashing)
+        if (playerMovementState != eMovementState.Dashing && playerMovementState != eMovementState.WallClinging)
         {
             facingRight = !facingRight;
             Vector3 scale = transform.localScale;
