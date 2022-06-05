@@ -256,6 +256,16 @@ public class PlayerScript : MonoBehaviour
         // Jump Code
         hangCountdown -= Time.deltaTime;
 
+        // If we run out of jumps and still want to, sacrifice some health
+        if (Input.GetKeyDown(KeyCode.Space) &&
+            extraJumps <= 0 &&
+            (playerAerialState == eAerialState.Jumping || playerAerialState == eAerialState.Falling) &&
+            currentHealthValue > 4) // TODO: Change these Fours to be in one variable, this will be very annoying if we want to change all of them
+        {
+            Sacrifice(4);
+            Jump();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // If we're gliding, we want to be able to use our double jump
@@ -283,15 +293,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        // If we run out of jumps and still want to, sacrifice some health
-        if (Input.GetKeyDown(KeyCode.Space) &&
-            extraJumps <= 0 &&
-            playerAerialState == eAerialState.Jumping &&
-            currentHealthValue > 4) // TODO: Change these Fours to be in one variable, this will be very annoying if we want to change all of them
-        {
-            Sacrifice(4);
-            Jump();
-        }
 
 
         // Hang Time (Coyote Time)
