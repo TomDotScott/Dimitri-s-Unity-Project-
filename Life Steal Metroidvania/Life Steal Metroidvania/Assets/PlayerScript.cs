@@ -37,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     public LayerMask playerLayer;
     public LayerMask intangiblePlayerLayer;
 
-    private bool intangibleDash;
+    private bool isIntangible;
 
     private Vector2 dashDirection = Vector2.zero;
 
@@ -148,6 +148,8 @@ public class PlayerScript : MonoBehaviour
         extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         dashTime = startDashTime;
+        dashIntangibilityCountdown = 0f;
+
         onTopOfWall = false;
         hangCountdown = hangTime;
         currentHealthValue = totalHealthValue;
@@ -155,7 +157,8 @@ public class PlayerScript : MonoBehaviour
         takingDamage = false;
         beastMode = false;
         touchingLava = false;
-        intangibleDash = true;
+        isIntangible = false;
+
     }
 
 
@@ -235,7 +238,7 @@ public class PlayerScript : MonoBehaviour
             {
                 dashTime = startDashTime;
                 Debug.Log("Resetting Intangible Dash");
-                intangibleDash = false;
+                isIntangible = false;
                 gameObject.layer = LayerMask.NameToLayer("Player"); // Set the layer back to the normal collision layer 
                 dashIntangibilityCountdown = dashIntangibilityCountdownTime;
                 ResetDash();
@@ -529,7 +532,7 @@ public class PlayerScript : MonoBehaviour
 
         if (hasDashed == true && dashIntangibilityCountdown <= 0f)
         {
-            intangibleDash = true;
+            isIntangible = true;
             gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer"); // Swap to the physics layer we created that doesn't let us collide with enemies - to view the layers go to... Edit->Project Settings->Physics2D
         }
     }
@@ -661,7 +664,7 @@ public class PlayerScript : MonoBehaviour
                 }
             case "Enemy":
                 Debug.Log("Enemy Collision Detected");
-                if (intangibleDash == false)
+                if (isIntangible == false)
                 {
                     TakeDamage(totalHealthValue / 10f);
 
