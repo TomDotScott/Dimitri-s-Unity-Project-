@@ -2,50 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameConstants : MonoBehaviour
+public static class GameConstants
 {
-    public static string HORIZONTAL_MOVEMENT
-    {
-        get { return "Horizontal Movement"; }
-    }
+    public static string HORIZONTAL_MOVEMENT => "Horizontal Movement";
 
-    public static string VERTICAL_MOVEMENT
-    {
-        get { return "Vertical Movement"; }
-    }
+    public static string VERTICAL_MOVEMENT => "Vertical Movement";
 
-    public static string JUMP
-    {
-        get { return "Jump"; }
-    }
+    public static string JUMP => "Jump";
 
-    public static string DASH
-    {
-        get { return "Dash"; }
-    }
+    public static string DASH => "Dash";
 
-    public static string INTANGIBLE_DASH
-    {
-        get { return "Intangible Dash"; }
-    }
+    public static string INTANGIBLE_DASH => "Intangible Dash";
 
-    public static string GLIDE
-    {
-        get { return "Glide"; }
-    }
+    public static string GLIDE => "Glide";
 
-    public static string WALL_CLIMB
-    {
-        get { return "Wall Climb"; }
-    }
+    public static string WALL_CLIMB => "Wall Climb";
 
-    public static string GRAPPLE
-    {
-        get { return "Grapple"; }
-    }
+    public static string GRAPPLE => "Grapple";
 
-    public static string ATTACK
-    {
-        get { return "Attack"; }
-    }
+    public static string ATTACK => "Attack";
 }
