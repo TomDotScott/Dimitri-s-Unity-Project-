@@ -165,6 +165,17 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Getting input for stuff later on...
+        float horizontalMovementValue = Input.GetAxisRaw(GameConstants.HORIZONTAL_MOVEMENT);
+        float verticalMovementValue = Input.GetAxisRaw(GameConstants.VERTICAL_MOVEMENT);
+        float jumpValue = Input.GetAxisRaw(GameConstants.JUMP);
+        float dashValue = Input.GetAxisRaw(GameConstants.DASH);
+        float intangibleDashValue = Input.GetAxisRaw(GameConstants.INTANGIBLE_DASH);
+        float glideValue = Input.GetAxisRaw(GameConstants.GLIDE);
+        float wallClimbValue = Input.GetAxisRaw(GameConstants.WALL_CLIMB);
+        float grappleValue = Input.GetAxisRaw(GameConstants.GRAPPLE);
+        float attackValue = Input.GetAxisRaw(GameConstants.ATTACK);
+
         if (playerAerialState == eAerialState.Grounded)
         {
             extraJumps = extraJumpsValue;
@@ -397,8 +408,8 @@ public class PlayerScript : MonoBehaviour
 
         #region MOVEMENT_CODE
         // Moving input
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        float upMovement = Input.GetAxisRaw("Vertical");
+        float moveInput = Input.GetAxisRaw(GameConstants.HORIZONTAL_MOVEMENT);
+        float upMovement = Input.GetAxisRaw(GameConstants.VERTICAL_MOVEMENT);
 
         if (onWall == true)
         {
