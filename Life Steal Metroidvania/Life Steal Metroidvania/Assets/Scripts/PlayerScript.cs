@@ -557,6 +557,12 @@ public class PlayerScript : MonoBehaviour
             dashIntangibilityCountdown = dashIntangibilityCountdownTime;
 
         }
+
+        else
+        {
+            Dash(direction);
+
+       }   
     }
 
     // Resetting dash
