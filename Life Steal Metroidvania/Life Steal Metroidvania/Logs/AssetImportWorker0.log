@@ -1,0 +1,119 @@
+Using pre-set license
+
+ COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/MacOS/Unity
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+/Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+61490
+Successfully changed project path to: /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania
+/Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 184.92 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.7f1 (d91830b65d9b)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+2022-07-06 18:11:06.948 Unity[3862:179523] Color LCD preferred device: Intel(R) Iris(TM) Plus Graphics 640 (low power)
+2022-07-06 18:11:06.948 Unity[3862:179523] Metal devices available: 1
+2022-07-06 18:11:06.948 Unity[3862:179523] 0: Intel(R) Iris(TM) Plus Graphics 640 (low power)
+2022-07-06 18:11:06.949 Unity[3862:179523] Using device Intel(R) Iris(TM) Plus Graphics 640 (low power)
+Initializing Metal device caps: Intel(R) Iris(TM) Plus Graphics 640
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = '/Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56862
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.001742 seconds.
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 184.55 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  6.343 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005553 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.098 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launching external process: /Applications/Unity/Hub/Editor/2021.1.7f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.97 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2670 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 166.1 MB.
+System memory in use after: 166.2 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 3122.
+Total: 4.239868 ms (FindLiveObjects: 0.364196 ms CreateObjectMapping: 0.183948 ms MarkObjects: 3.464808 ms  DeleteObjects: 0.225291 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Square.png
+  artifactKey: Guid(1c89453d8d9da4ea5afdf3429b25174d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Square.png using Guid(1c89453d8d9da4ea5afdf3429b25174d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd81ba2d2068e4193d18f960c41860bf3') in 0.883367 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/Maine Rising Fire Idle Animation.png
+  artifactKey: Guid(e489ec6458b6e4218acfb6a64a4fa047) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Maine Rising Fire Idle Animation.png using Guid(e489ec6458b6e4218acfb6a64a4fa047) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5efea4c3e290882aa5cffc1ae2d63bf3') in 0.081499 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000215 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3022f8377f0695efd60a3a559d99ed2e') in 0.002720 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000388 seconds.
+  path: Assets/Scenes
+  artifactKey: Guid(58089f2ed8f534321bdb247426deeafc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes using Guid(58089f2ed8f534321bdb247426deeafc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6166112b23198954e9e1832d88b2a98d') in 0.004035 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000551 seconds.
+  path: Assets/PlayerMat.physicsMaterial2D
+  artifactKey: Guid(836fbf5db519e48808092174e358d43a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlayerMat.physicsMaterial2D using Guid(836fbf5db519e48808092174e358d43a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f640fb2bda4bba19f2ec4044c0547e7') in 0.330582 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005384 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.442 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.52 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2666 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 180.1 MB.
+System memory in use after: 180.3 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3162.
+Total: 3.350199 ms (FindLiveObjects: 0.405198 ms CreateObjectMapping: 0.194135 ms MarkObjects: 2.725201 ms  DeleteObjects: 0.024231 ms)
+
