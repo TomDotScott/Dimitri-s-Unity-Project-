@@ -205,31 +205,64 @@ public class PlayerScript : MonoBehaviour
             bool upButtonPressed = verticalMovementValue > 0f;
             bool downButtonPressed = verticalMovementValue < 0f;
 
-            // Directional Dashing
-            if (rightButtonPressed && dashButtonPressed)
-            {
-                Dash(new Vector2(1, 0));
-            }
-            if (leftButtonPressed && dashButtonPressed)
-            {
-                Dash(new Vector2(-1, 0));
-            }
-            if (upButtonPressed && dashButtonPressed)
-            {
-                Dash(new Vector2(0, 1));
-            }
-            if (downButtonPressed && dashButtonPressed)
-            {
-                Dash(new Vector2(0, -1));
+            if (intangibleDashButtonPressed)
+            { 
+                // Directional Dashing
+                if (rightButtonPressed)
+                {
+                    IntangibleDash(new Vector2(1, 0));
+                }
+                if (leftButtonPressed)
+                {
+                    IntangibleDash(new Vector2(-1, 0));
+                }
+                if (upButtonPressed)
+                {
+                    IntangibleDash(new Vector2(0, 1));
+                }
+                if (downButtonPressed)
+                {
+                    IntangibleDash(new Vector2(0, -1));
+                }
+
+                // Handle the normal dash in the facing direction
+                if (playerMovementState != eMovementState.Dashing)
+                {
+                    // TERNARY EXPRESSIONS:
+                    // CONDITION ? IF TRUE : ELSE
+                    // Changed the if-else into a ternary ?: operation... 
+                    IntangibleDash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                }
             }
 
-            // Handle the normal dash in the facing direction
-            if (dashButtonPressed && playerMovementState != eMovementState.Dashing)
+            else if (dashButtonPressed)
             {
-                // TERNARY EXPRESSIONS:
-                // CONDITION ? IF TRUE : ELSE
-                // Changed the if-else into a ternary ?: operation... 
-                Dash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                // Directional Dashing
+                if (rightButtonPressed)
+                {
+                    Dash(new Vector2(1, 0));
+                }
+                if (leftButtonPressed)
+                {
+                    Dash(new Vector2(-1, 0));
+                }
+                if (upButtonPressed)
+                {
+                    Dash(new Vector2(0, 1));
+                }
+                if (downButtonPressed)
+                {
+                    Dash(new Vector2(0, -1));
+                }
+
+                // Handle the normal dash in the facing direction
+                if (playerMovementState != eMovementState.Dashing)
+                {
+                    // TERNARY EXPRESSIONS:
+                    // CONDITION ? IF TRUE : ELSE
+                    // Changed the if-else into a ternary ?: operation... 
+                    Dash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                }
             }
 
             // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
@@ -495,12 +528,10 @@ public class PlayerScript : MonoBehaviour
     // Dash function
     private void Dash(Vector2 direction) // Direction is a Vector2 to allow movement in all 4 quadrants
     {
-        bool hasDashed = false; // we want to track if our dash was successful for the intangibility...
         if (dashCount > 0)
         {
             dashDirection += direction;
             playerMovementState = eMovementState.Dashing;
-            hasDashed = true;
         }
         else
         {
@@ -508,14 +539,18 @@ public class PlayerScript : MonoBehaviour
             {
                 dashDirection += direction;
                 playerMovementState = eMovementState.Dashing;
-                hasDashed = true;
                 Sacrifice(4);
             }
 
         }
+    }
 
-        if (hasDashed && dashIntangibilityCountdown <= 0f)
+    // Intangible Dash function
+    private void IntangibleDash(Vector2 direction)
+    {
+        if (dashIntangibilityCountdown <= 0f)
         {
+            Dash(direction);
             isIntangible = true;
             gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer"); // Swap to the physics layer we created that doesn't let us collide with enemies - to view the layers go to... Edit->Project Settings->Physics2D
 
