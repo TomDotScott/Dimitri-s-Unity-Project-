@@ -248,7 +248,6 @@ public class PlayerScript : MonoBehaviour
                 // Debug.Log("Resetting Intangible Dash");
                 isIntangible = false;
                 gameObject.layer = LayerMask.NameToLayer("Player"); // Set the layer back to the normal collision layer 
-                dashIntangibilityCountdown = dashIntangibilityCountdownTime;
                 ResetDash();
             }
             else
@@ -257,10 +256,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (playerMovementState != eMovementState.Dashing)
-        {
-            dashIntangibilityCountdown -= Time.deltaTime;
-        }
+        dashIntangibilityCountdown -= Time.deltaTime;
         #endregion
 
         #region JUMP_CODE
@@ -522,6 +518,9 @@ public class PlayerScript : MonoBehaviour
         {
             isIntangible = true;
             gameObject.layer = LayerMask.NameToLayer("IntangiblePlayer"); // Swap to the physics layer we created that doesn't let us collide with enemies - to view the layers go to... Edit->Project Settings->Physics2D
+
+            dashIntangibilityCountdown = dashIntangibilityCountdownTime;
+
         }
     }
 

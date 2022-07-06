@@ -117,3 +117,333 @@ System memory in use after: 180.3 MB.
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3162.
 Total: 3.350199 ms (FindLiveObjects: 0.405198 ms CreateObjectMapping: 0.194135 ms MarkObjects: 2.725201 ms  DeleteObjects: 0.024231 ms)
 
+========================================================================
+Received Import Request.
+  Time since last request: 263.716808 seconds.
+  path: Assets/Prefabricated Objects/Enemy.prefab
+  artifactKey: Guid(7975f3a56081f4d33b576299c7de74f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Enemy.prefab using Guid(7975f3a56081f4d33b576299c7de74f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64ca420424c6ce8896e8881ed90717ad') in 0.470692 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000206 seconds.
+  path: Assets/Prefabricated Objects/Reset_Dash.prefab
+  artifactKey: Guid(e5385513f65484cd185baf663ff72508) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Reset_Dash.prefab using Guid(e5385513f65484cd185baf663ff72508) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30ebe1d9621700e611fb0f160257afa5') in 0.017992 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000053 seconds.
+  path: Assets/Prefabricated Objects/Standing_Wall.prefab
+  artifactKey: Guid(5ef15734779e14329ae39dc7d209cdae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Standing_Wall.prefab using Guid(5ef15734779e14329ae39dc7d209cdae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd627702cd6d4f491afb04308ac210307') in 0.032647 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/Prefabricated Objects/Test_Platfom_1.prefab
+  artifactKey: Guid(ee333dcde2b4b431cb56c3ced6e4bba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Test_Platfom_1.prefab using Guid(ee333dcde2b4b431cb56c3ced6e4bba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0be23c0adb986e301b91ae2ed23529b') in 0.012833 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000177 seconds.
+  path: Assets/Prefabricated Objects/Lava Respawn.prefab
+  artifactKey: Guid(c91b2482c7a1d4f9fad40329f3296f0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Lava Respawn.prefab using Guid(c91b2482c7a1d4f9fad40329f3296f0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae804e50726854b539ffd6b77e41ac15') in 0.004061 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/Prefabricated Objects/Maine.prefab
+  artifactKey: Guid(a737feba5bd514aa5bbaf871567cfe7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Maine.prefab using Guid(a737feba5bd514aa5bbaf871567cfe7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4877216735c6c79d562a7a914efd5512') in 0.014552 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000264 seconds.
+  path: Assets/Prefabricated Objects/Floor_To_Ceiling_Wall 1.prefab
+  artifactKey: Guid(7ddf25177b66a414da17c01e09540bcc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabricated Objects/Floor_To_Ceiling_Wall 1.prefab using Guid(7ddf25177b66a414da17c01e09540bcc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92ec2b7a4bba58367526f2a4d90f13d3') in 0.027906 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.938619 seconds.
+  path: Assets/PlayerScript.cs
+  artifactKey: Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlayerScript.cs using Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d24010c337b9531c1b494527aef2fb2') in 0.224658 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004600 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 2.20 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.869 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.0 MB.
+System memory in use after: 186.2 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3169.
+Total: 4.321110 ms (FindLiveObjects: 0.345105 ms CreateObjectMapping: 0.167950 ms MarkObjects: 3.782698 ms  DeleteObjects: 0.023991 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 47.093609 seconds.
+  path: Assets/Scripts
+  artifactKey: Guid(330b33a61dcd946199668f84b17a1207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts using Guid(330b33a61dcd946199668f84b17a1207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfe32c0eb9489dfac8465e03c053cca4') in 0.007170 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003331 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 1.01 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.055 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.99 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.2 MB.
+System memory in use after: 186.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3172.
+Total: 4.619121 ms (FindLiveObjects: 0.854349 ms CreateObjectMapping: 0.246453 ms MarkObjects: 3.492640 ms  DeleteObjects: 0.023573 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002516 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 2.91 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.814 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.3 MB.
+System memory in use after: 186.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3175.
+Total: 3.657305 ms (FindLiveObjects: 0.368544 ms CreateObjectMapping: 0.180570 ms MarkObjects: 3.086870 ms  DeleteObjects: 0.019989 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002742 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.388 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.98 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.5 MB.
+System memory in use after: 186.7 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3178.
+Total: 3.845337 ms (FindLiveObjects: 0.377426 ms CreateObjectMapping: 0.202469 ms MarkObjects: 3.239414 ms  DeleteObjects: 0.024504 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002677 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 3.01 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.604 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.76 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.7 MB.
+System memory in use after: 186.9 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3181.
+Total: 3.435752 ms (FindLiveObjects: 0.400972 ms CreateObjectMapping: 0.212770 ms MarkObjects: 2.797157 ms  DeleteObjects: 0.023633 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 716.541497 seconds.
+  path: Assets/Scripts/PlayerScript.cs
+  artifactKey: Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/PlayerScript.cs using Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '069be72ea823d9d419f33e42b59b57f3') in 0.008958 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003634 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.603 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 186.9 MB.
+System memory in use after: 187.1 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3184.
+Total: 3.340645 ms (FindLiveObjects: 0.320790 ms CreateObjectMapping: 0.190651 ms MarkObjects: 2.699726 ms  DeleteObjects: 0.127629 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005322 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.56 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.357 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.48 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 187.1 MB.
+System memory in use after: 187.3 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3187.
+Total: 2.657728 ms (FindLiveObjects: 0.226327 ms CreateObjectMapping: 0.138643 ms MarkObjects: 2.272880 ms  DeleteObjects: 0.018844 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005270 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.57 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.320 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.54 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 187.2 MB.
+System memory in use after: 187.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3190.
+Total: 2.499897 ms (FindLiveObjects: 0.397132 ms CreateObjectMapping: 0.173923 ms MarkObjects: 1.904190 ms  DeleteObjects: 0.023031 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004268 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.54 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.217 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.67 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 187.4 MB.
+System memory in use after: 187.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3193.
+Total: 2.145977 ms (FindLiveObjects: 0.247374 ms CreateObjectMapping: 0.134912 ms MarkObjects: 1.744838 ms  DeleteObjects: 0.017817 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001266 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.57 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.434 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 187.6 MB.
+System memory in use after: 187.8 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3196.
+Total: 2.976303 ms (FindLiveObjects: 0.372917 ms CreateObjectMapping: 0.187473 ms MarkObjects: 2.391191 ms  DeleteObjects: 0.023357 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 436.345530 seconds.
+  path: Assets/Scripts/PlayerScript.cs
+  artifactKey: Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/PlayerScript.cs using Guid(cd17b08ac1fb9469883b35373d5580d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '180ba0b8b08c26c60a2566d30582e7fb') in 0.007167 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001724 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.406 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.71 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 187.8 MB.
+System memory in use after: 188.0 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3199.
+Total: 2.494052 ms (FindLiveObjects: 0.222227 ms CreateObjectMapping: 0.124293 ms MarkObjects: 2.125960 ms  DeleteObjects: 0.020299 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001940 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/dimitridionissiou/Desktop/Dimitri's Lifesteal Metroidvania/Life Steal Metroidvania/Life Steal Metroidvania/Library/PackageCache/com.unity.visualscripting@1.6.1/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.66 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.312 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.43 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2664 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 188.0 MB.
+System memory in use after: 188.2 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 3202.
+Total: 3.756909 ms (FindLiveObjects: 0.239146 ms CreateObjectMapping: 0.146962 ms MarkObjects: 3.348343 ms  DeleteObjects: 0.021062 ms)
+
