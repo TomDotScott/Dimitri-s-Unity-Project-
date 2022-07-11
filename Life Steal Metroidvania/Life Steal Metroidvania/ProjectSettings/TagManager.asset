@@ -12,10 +12,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Lava
   - Water
   - UI
-  - 
+  - Player Lava
   - 
   - Ground
   - Wol

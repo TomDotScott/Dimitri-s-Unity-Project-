@@ -457,10 +457,12 @@ public class PlayerScript : MonoBehaviour
                 if (horizontalMovementValue == 0 && verticalMovementValue == 0)
                 {
                     playerMovementState = eMovementState.Idle;
+                    gameObject.layer = LayerMask.NameToLayer("Player");
                 }
                 else
                 {
                     playerMovementState = eMovementState.Moving;
+                    gameObject.layer = LayerMask.NameToLayer("Player Lava");
                 }
             }
         }
