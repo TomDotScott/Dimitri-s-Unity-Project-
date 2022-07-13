@@ -68,15 +68,33 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player State")]
     public eMovementState playerMovementState;
-
     public eAerialState playerAerialState;
 
     // Establishing the Rigidbody variable
     private Rigidbody2D rb;
 
+    enum FacingDirection
+    {
+        Left,
+        Right,
+    }
 
     // Establishing the facingRight variable
-    private bool facingRight = true;
+    private FacingDirection currentFacingDirection = FacingDirection.Right;
+    private FacingDirection previousFacingDirection;
+    private FacingDirection CurrentFacingDirection
+    {
+        get => currentFacingDirection;
+        set
+        {
+            if (value != currentFacingDirection)
+            {
+                Flip();
+            }
+
+            currentFacingDirection = value;
+        }
+    }
 
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
@@ -170,6 +188,15 @@ public class PlayerScript : MonoBehaviour
         // These return floats between -1 and 1 depending on whether the +ve or -ve input buttons were pressed
         float horizontalMovementValue = Input.GetAxisRaw(GameConstants.HORIZONTAL_MOVEMENT);
         float verticalMovementValue = Input.GetAxisRaw(GameConstants.VERTICAL_MOVEMENT);
+        if (horizontalMovementValue > 0)
+        {
+            CurrentFacingDirection = FacingDirection.Right;
+        }
+
+        else if (horizontalMovementValue < 0)
+        {
+            CurrentFacingDirection = FacingDirection.Left;
+        }
 
         // These return true if they were pressed down on the current frame
         bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP);
@@ -231,7 +258,7 @@ public class PlayerScript : MonoBehaviour
                     // TERNARY EXPRESSIONS:
                     // CONDITION ? IF TRUE : ELSE
                     // Changed the if-else into a ternary ?: operation... 
-                    IntangibleDash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                    IntangibleDash(currentFacingDirection == FacingDirection.Right ? new Vector2(1, 0) : new Vector2(-1, 0));
                 }
             }
 
@@ -261,7 +288,7 @@ public class PlayerScript : MonoBehaviour
                     // TERNARY EXPRESSIONS:
                     // CONDITION ? IF TRUE : ELSE
                     // Changed the if-else into a ternary ?: operation... 
-                    Dash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                    Dash(currentFacingDirection == FacingDirection.Right ? new Vector2(1, 0) : new Vector2(-1, 0));
                 }
             }
 
@@ -448,21 +475,33 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+       
+
         // Making player walk at the moveSpeed variable
         if (playerMovementState != eMovementState.Dashing)
         {
             if (playerMovementState != eMovementState.WallClinging)
             {
-                rb.velocity = new Vector2(horizontalMovementValue * moveSpeed, rb.velocity.y);
+                if (horizontalMovementValue != 0)
+                {
+                    if (CurrentFacingDirection == FacingDirection.Right && currentFacingDirection == previousFacingDirection)
+                    {
+                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+                    }
+
+                    else
+                    {
+                        rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+                    }
+
+                    playerMovementState = eMovementState.Moving;
+                    gameObject.layer = LayerMask.NameToLayer("Player Lava");
+                }
                 if (horizontalMovementValue == 0 && verticalMovementValue == 0)
                 {
                     playerMovementState = eMovementState.Idle;
                     gameObject.layer = LayerMask.NameToLayer("Player");
-                }
-                else
-                {
-                    playerMovementState = eMovementState.Moving;
-                    gameObject.layer = LayerMask.NameToLayer("Player Lava");
+                    rb.velocity = new Vector2 (0, rb.velocity.y);
                 }
             }
         }
@@ -480,11 +519,6 @@ public class PlayerScript : MonoBehaviour
             playerMovementState = eMovementState.Dashing;
         }
 
-        // Turns around if they change walking direction
-        if ((!facingRight && horizontalMovementValue > 0) || (facingRight && horizontalMovementValue < 0))
-        {
-            Flip();
-        }
         #endregion
 
 
@@ -519,7 +553,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (playerMovementState != eMovementState.Dashing && playerMovementState != eMovementState.WallClinging)
         {
-            facingRight = !facingRight;
             Vector3 scale = transform.localScale;
             scale.x *= -1; // Making the X Scale negative, flips the pixels horizontally
             transform.localScale = scale;
