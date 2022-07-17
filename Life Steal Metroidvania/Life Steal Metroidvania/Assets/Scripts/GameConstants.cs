@@ -4,9 +4,13 @@ using UnityEngine;
 
 public static class GameConstants
 {
-    public static string HORIZONTAL_MOVEMENT => "Horizontal Movement";
+    public static string LEFT_BUTTON => "Left";
 
-    public static string VERTICAL_MOVEMENT => "Vertical Movement";
+    public static string RIGHT_BUTTON => "Right";
+
+    public static string UP_BUTTON => "Up";
+
+    public static string DOWN_BUTTON => "Down";
 
     public static string JUMP => "Jump";
 
