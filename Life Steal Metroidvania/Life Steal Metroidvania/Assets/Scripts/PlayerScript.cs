@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,15 +69,23 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player State")]
     public eMovementState playerMovementState;
-
     public eAerialState playerAerialState;
 
     // Establishing the Rigidbody variable
     private Rigidbody2D rb;
 
+    enum FacingDirection
+    {
+        None = 0,
+        Left = -1,
+        Right = 1,
+    }
 
     // Establishing the facingRight variable
-    private bool facingRight = true;
+    private FacingDirection overrideDirection = FacingDirection.None;
+    private FacingDirection facingDirection = FacingDirection.Right;
+
+    private Vector2 previousPosition;
 
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
@@ -138,7 +147,6 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -167,9 +175,7 @@ public class PlayerScript : MonoBehaviour
     {
         // Getting input for stuff later on...
 
-        // These return floats between -1 and 1 depending on whether the +ve or -ve input buttons were pressed
-        float horizontalMovementValue = Input.GetAxisRaw(GameConstants.HORIZONTAL_MOVEMENT);
-        float verticalMovementValue = Input.GetAxisRaw(GameConstants.VERTICAL_MOVEMENT);
+        // TODO: Move all of these into a structure or class so Inputs are manageable in one place
 
         // These return true if they were pressed down on the current frame
         bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP);
@@ -177,11 +183,23 @@ public class PlayerScript : MonoBehaviour
         bool intangibleDashButtonPressed = Input.GetButtonDown(GameConstants.INTANGIBLE_DASH);
         bool grappleButtonPressed = Input.GetButtonDown(GameConstants.GRAPPLE);
         bool attackButtonPressed = Input.GetButtonDown(GameConstants.ATTACK);
+        bool leftButtonPressed = Input.GetButtonDown(GameConstants.LEFT_BUTTON);
+        bool rightButtonPressed = Input.GetButtonDown(GameConstants.RIGHT_BUTTON);
+        bool upButtonPressed = Input.GetButtonDown(GameConstants.UP_BUTTON);
+        bool downButtonPressed = Input.GetButtonDown(GameConstants.DOWN_BUTTON);
+
+        // These return false if they were released on the current frame
+        bool leftButtonReleased = Input.GetButtonUp(GameConstants.LEFT_BUTTON);
+        bool rightButtonReleased = Input.GetButtonUp(GameConstants.RIGHT_BUTTON);
 
         // These return true as long as the button is held down
         bool glideButtonHeld = Input.GetButton(GameConstants.GLIDE);
         bool jumpButtonHeld = Input.GetButton(GameConstants.JUMP);
         bool wallClimbButtonHeld = Input.GetButton(GameConstants.WALL_CLIMB);
+        bool leftButtonHeld = Input.GetButton(GameConstants.LEFT_BUTTON);
+        bool rightButtonHeld = Input.GetButton(GameConstants.RIGHT_BUTTON);
+        bool upButtonHeld = Input.GetButton(GameConstants.UP_BUTTON);
+        bool downButtonHeld = Input.GetButton(GameConstants.DOWN_BUTTON);
 
 
         if (playerAerialState == eAerialState.Grounded)
@@ -200,27 +218,22 @@ public class PlayerScript : MonoBehaviour
         // Input for Dash
         if (dashDirection == Vector2.zero)
         {
-            bool rightButtonPressed = horizontalMovementValue > 0f;
-            bool leftButtonPressed = horizontalMovementValue < 0f;
-            bool upButtonPressed = verticalMovementValue > 0f;
-            bool downButtonPressed = verticalMovementValue < 0f;
-
             if (intangibleDashButtonPressed)
-            { 
+            {
                 // Directional Dashing
-                if (rightButtonPressed)
+                if (rightButtonHeld)
                 {
                     IntangibleDash(new Vector2(1, 0));
                 }
-                if (leftButtonPressed)
+                if (leftButtonHeld)
                 {
                     IntangibleDash(new Vector2(-1, 0));
                 }
-                if (upButtonPressed)
+                if (upButtonHeld)
                 {
                     IntangibleDash(new Vector2(0, 1));
                 }
-                if (downButtonPressed)
+                if (downButtonHeld)
                 {
                     IntangibleDash(new Vector2(0, -1));
                 }
@@ -231,26 +244,26 @@ public class PlayerScript : MonoBehaviour
                     // TERNARY EXPRESSIONS:
                     // CONDITION ? IF TRUE : ELSE
                     // Changed the if-else into a ternary ?: operation... 
-                    IntangibleDash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                    IntangibleDash(facingDirection == FacingDirection.Right ? new Vector2(1, 0) : new Vector2(-1, 0));
                 }
             }
 
             else if (dashButtonPressed)
             {
                 // Directional Dashing
-                if (rightButtonPressed)
+                if (rightButtonHeld)
                 {
                     Dash(new Vector2(1, 0));
                 }
-                if (leftButtonPressed)
+                if (leftButtonHeld)
                 {
                     Dash(new Vector2(-1, 0));
                 }
-                if (upButtonPressed)
+                if (upButtonHeld)
                 {
                     Dash(new Vector2(0, 1));
                 }
-                if (downButtonPressed)
+                if (downButtonHeld)
                 {
                     Dash(new Vector2(0, -1));
                 }
@@ -261,7 +274,7 @@ public class PlayerScript : MonoBehaviour
                     // TERNARY EXPRESSIONS:
                     // CONDITION ? IF TRUE : ELSE
                     // Changed the if-else into a ternary ?: operation... 
-                    Dash(facingRight ? new Vector2(1, 0) : new Vector2(-1, 0));
+                    Dash(facingDirection == FacingDirection.Right ? new Vector2(1, 0) : new Vector2(-1, 0));
                 }
             }
 
@@ -422,6 +435,16 @@ public class PlayerScript : MonoBehaviour
         {
             if (wallClimbButtonHeld)
             {
+                float verticalMovementValue = 0f;
+                if (upButtonHeld)
+                {
+                    verticalMovementValue += 1f;
+                }
+
+                if (downButtonHeld)
+                {
+                    verticalMovementValue -= 1f;
+                }
                 rb.velocity = new Vector2(rb.velocity.x, verticalMovementValue * moveSpeed);
                 rb.gravityScale = 0f;
                 playerMovementState = eMovementState.WallClinging;
@@ -453,17 +476,10 @@ public class PlayerScript : MonoBehaviour
         {
             if (playerMovementState != eMovementState.WallClinging)
             {
-                rb.velocity = new Vector2(horizontalMovementValue * moveSpeed, rb.velocity.y);
-                if (horizontalMovementValue == 0 && verticalMovementValue == 0)
-                {
-                    playerMovementState = eMovementState.Idle;
-                    gameObject.layer = LayerMask.NameToLayer("Player");
-                }
-                else
-                {
-                    playerMovementState = eMovementState.Moving;
-                    gameObject.layer = LayerMask.NameToLayer("Player Lava");
-                }
+                Move(
+                    new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
+                    new InputButton(rightButtonPressed, rightButtonHeld, rightButtonReleased)
+                );
             }
         }
         else
@@ -480,13 +496,7 @@ public class PlayerScript : MonoBehaviour
             playerMovementState = eMovementState.Dashing;
         }
 
-        // Turns around if they change walking direction
-        if ((!facingRight && horizontalMovementValue > 0) || (facingRight && horizontalMovementValue < 0))
-        {
-            Flip();
-        }
         #endregion
-
 
         // Beast Mode Code
         // TODO: ADD 'BEAST MODE' BUTTON IN THE INPUT AND IMPLEMENT THE BEASTMODE STUFF 
@@ -515,16 +525,137 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Flip functions
-    private void Flip()
+    private void Flip(FacingDirection direction)
     {
         if (playerMovementState != eMovementState.Dashing && playerMovementState != eMovementState.WallClinging)
         {
-            facingRight = !facingRight;
             Vector3 scale = transform.localScale;
-            scale.x *= -1; // Making the X Scale negative, flips the pixels horizontally
+            if (direction == FacingDirection.Left)
+            {
+                // To look left we want it to always be negative. Abs returns the positive version of any number
+                // We can't just do -scale.x because if it's already negative (i.e. we're looking left...) then it will be 
+                // positive (we will look right) this is because - x - = +
+                scale.x = -Mathf.Abs(scale.x);
+            }
+            else
+            {
+                scale.x = Mathf.Abs(scale.x);
+            }
+
             transform.localScale = scale;
         }
 
+    }
+
+    // A struct is a way that we can create our own data type (like int, float, string, etc) in C#
+    // Here, I'm using it so I can store 3 variables (pressed, held and released) under one name
+    // (InputButton)
+    private struct InputButton
+    {
+        // This is called a CONSTRUCTOR, it's what we use to create our new struct:
+        //     - A CONSTRUCTOR is a function with the same name as the struct or class and is the first thing called
+        //       when we create a new INSTANCE of that data type
+        //     - InputButton's CONSTRUCTOR takes in 3 PARAMETERS and I set the struct's FIELDS based on what we 
+        //       pass into it
+        public InputButton(bool pressed, bool held, bool released)
+        {
+            buttonPressed = pressed;
+            buttonHeld = held;
+            buttonReleased = released;
+        }
+
+        // These booleans get set in the constructor, I decided to make them public so they can be read
+        // outside of this struct, but READONLY so that they can't be edited
+        // Just like the FIELDS we have at the top of this CLASS, these variables exist inside our struct can can
+        // be accessed with the . operator
+        public readonly bool buttonPressed;
+        public readonly bool buttonHeld;
+        public readonly bool buttonReleased;
+    }
+
+    // Walk/Run function
+    private void Move(InputButton left, InputButton right)
+    {
+        // Check if we're walking, if we are, work out the direction we need to walk
+        if (left.buttonHeld || right.buttonHeld)
+        {
+            // Step 1 - Set the initial facing directions depending on the button press
+            if (left.buttonHeld)
+            {
+                facingDirection = FacingDirection.Left;
+            }
+
+            if (right.buttonHeld)
+            {
+                facingDirection = FacingDirection.Right;
+            }
+
+            // Step 2 - Override the press if the opposite direction is pressed whilst the other button is held down
+            if (facingDirection == FacingDirection.Right && left.buttonPressed)
+            {
+                overrideDirection = FacingDirection.Left;
+            }
+
+            if (facingDirection == FacingDirection.Left && right.buttonPressed)
+            {
+                overrideDirection = FacingDirection.Right;
+            }
+
+            // Step 3 - Remove the override if the override button has been released
+            if (left.buttonReleased && overrideDirection != FacingDirection.None)
+            {
+                if (overrideDirection == FacingDirection.Right)
+                {
+                    facingDirection = FacingDirection.Right;
+                }
+
+                overrideDirection = FacingDirection.None;
+            }
+
+            if (right.buttonReleased && overrideDirection != FacingDirection.None)
+            {
+                if (overrideDirection == FacingDirection.Left)
+                {
+                    facingDirection = FacingDirection.Left;
+                }
+
+                overrideDirection = FacingDirection.None;
+            }
+
+            // Step 4 - Apply the override if needed, else travel in the direction we want
+            // Enums can be converted into numbers, take a look at the definition, I set
+            // Left to -1 and Right to +1 with None as 0 so we can use it as our velocity
+            if (overrideDirection != FacingDirection.None)
+            {
+                rb.velocity = new Vector2((int)overrideDirection * moveSpeed, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2((int)facingDirection * moveSpeed, rb.velocity.y);
+            }
+
+            // Step 5 - Flip the sprite depending on the direction we decided to go
+            if (rb.velocity.x < 0)
+            {
+                Flip(FacingDirection.Left);
+            }
+            else
+            {
+                Flip(FacingDirection.Right);
+            }
+
+            // Step 6 - Change state and move layers so that we can walk on lava since we're moving!
+            playerMovementState = eMovementState.Moving;
+            gameObject.layer = LayerMask.NameToLayer("Player Lava");
+        }
+        else
+        {
+            // If we're not pressing the walk buttons, stop and set to idle 
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            playerMovementState = eMovementState.Idle;
+            overrideDirection = FacingDirection.None;
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
     }
 
     // Dash function
@@ -564,7 +695,7 @@ public class PlayerScript : MonoBehaviour
         {
             Dash(direction);
 
-       }   
+        }
     }
 
     // Resetting dash
