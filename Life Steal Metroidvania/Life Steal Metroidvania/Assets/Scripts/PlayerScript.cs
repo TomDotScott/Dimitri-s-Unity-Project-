@@ -333,23 +333,22 @@ public class PlayerScript : MonoBehaviour
                 // Normal jump if we're on the ground
                 Jump();
             }
+            else if (playerAerialState == eAerialState.Falling && hangCountdown >= 0)
+            {
+                Jump();
+                Debug.Log("Hang Time Activity");
+            }
             else if (extraJumps > 0)
             {
                 // Use up our double jump!
                 Jump();
                 extraJumps--;
             }
-            else if (hangCountdown >= 0)
-            {
-                Jump();
-                playerAerialState = eAerialState.Jumping;
-            }
         }
 
 
 
         // Hang Time (Coyote Time)
-        hangCountdown -= Time.deltaTime;
         if (playerAerialState == eAerialState.Grounded)
         {
             hangCountdown = hangTime;
@@ -382,6 +381,7 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 playerAerialState = eAerialState.Falling;
+                hangCountdown -= Time.deltaTime;
             }
         }
         else
@@ -845,10 +845,14 @@ public class PlayerScript : MonoBehaviour
                 {
                     if (onTopOfWall)
                     {
-                        playerAerialState = eAerialState.Jumping;
+                       if (playerAerialState != eAerialState.Jumping)
+                       {
+                           playerAerialState = eAerialState.Falling;
+                       }
                     }
                     onWall = false;
                     onTopOfWall = false;
+                    hangCountdown = hangTime;
                     break;
                 }
             case "Ground":
