@@ -56,9 +56,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -67,9 +70,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -90,10 +93,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -396,9 +403,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Maine Rising Fire Idle Animation_5: 7372422739519918942
+      Maine Rising Fire Idle Animation_3: 7945552340340481350
+      Maine Rising Fire Idle Animation_6: -2240465630290070395
+      Maine Rising Fire Idle Animation_9: -801954079696013828
+      Maine Rising Fire Idle Animation_10: -7312904608732281011
+      Maine Rising Fire Idle Animation_1: 1603009488941122957
+      Maine Rising Fire Idle Animation_7: 2785548930369328783
+      Maine Rising Fire Idle Animation_4: 6132177908492298851
+      Maine Rising Fire Idle Animation_2: 6594845564391979491
+      Maine Rising Fire Idle Animation_11: 5249769250145878396
+      Maine Rising Fire Idle Animation_0: -7719188916162113013
+      Maine Rising Fire Idle Animation_8: 3938071062028685830
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
