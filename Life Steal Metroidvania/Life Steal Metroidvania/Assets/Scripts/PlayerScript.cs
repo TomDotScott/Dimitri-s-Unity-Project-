@@ -701,6 +701,8 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
+
+        dashDirection = dashDirection.normalized;
     }
 
     // Intangible Dash function
