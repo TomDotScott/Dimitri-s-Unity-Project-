@@ -335,6 +335,7 @@ public class PlayerScript : MonoBehaviour
             {
                 Jump();
                 extraJumps--;
+                Debug.Log("A");
             }
 
             if (playerAerialState == eAerialState.Grounded)
@@ -347,11 +348,12 @@ public class PlayerScript : MonoBehaviour
                 Jump();
                 Debug.Log("Hang Time Activity");
             }
-            else if (extraJumps > 0)
+            else if (extraJumps > 0 && playerAerialState == eAerialState.Falling)
             {
                 // Use up our double jump!
                 Jump();
                 extraJumps--;
+                Debug.Log("B");
             }
         }
 
@@ -689,7 +691,6 @@ public class PlayerScript : MonoBehaviour
         if (dashCount > 0)
         {
             dashDirection += CalculateDashDirection(direction);
-            playerMovementState = eMovementState.Dashing;
         }
         else
         {
