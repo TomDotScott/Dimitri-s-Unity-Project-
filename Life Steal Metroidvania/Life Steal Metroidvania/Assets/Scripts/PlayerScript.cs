@@ -144,6 +144,7 @@ public class PlayerScript : MonoBehaviour
 
     [Range(0f, 2f)] public float jumpBufferLength = .1f;
     private float jumpBufferCount;
+    private FacingDirection right;
     #endregion
 
 
@@ -178,7 +179,15 @@ public class PlayerScript : MonoBehaviour
         // TODO: Move all of these into a structure or class so Inputs are manageable in one place
 
         // These return true if they were pressed down on the current frame
-        bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP);
+        bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP) || Input.GetKey(KeyCode.Space);
+        if (jumpButtonPressed)
+        {
+            Debug.Log("Jumped");
+        }
+        else
+        {
+            Debug.Log("Literally Nothing");
+        }
         bool dashButtonPressed = Input.GetButtonDown(GameConstants.DASH);
         bool intangibleDashButtonPressed = Input.GetButtonDown(GameConstants.INTANGIBLE_DASH);
         bool grappleButtonPressed = Input.GetButtonDown(GameConstants.GRAPPLE);
@@ -194,7 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         // These return true as long as the button is held down
         bool glideButtonHeld = Input.GetButton(GameConstants.GLIDE);
-        bool jumpButtonHeld = Input.GetButton(GameConstants.JUMP);
+        bool jumpButtonHeld = Input.GetButton(GameConstants.JUMP) || Input.GetKey(KeyCode.Space);
         bool wallClimbButtonHeld = Input.GetButton(GameConstants.WALL_CLIMB);
         bool leftButtonHeld = Input.GetButton(GameConstants.LEFT_BUTTON);
         bool rightButtonHeld = Input.GetButton(GameConstants.RIGHT_BUTTON);
@@ -486,7 +495,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (dashDirection.x != 0 && dashDirection.y != 0)
             {
-                rb.velocity = dashDirection * WorkOutDiagonalDashSpeed();
+                rb.velocity = dashDirection * CalculateDiagonalDashSpeed();
             }
             else
             {
@@ -519,7 +528,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    private float WorkOutDiagonalDashSpeed()
+    private float CalculateDiagonalDashSpeed()
     {
         return Mathf.Sqrt((dashSpeed * dashSpeed) / 2); // We use Pythagoras to work out the diagonal distance...
     }
@@ -658,24 +667,42 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private Vector2 CalculateDashDirection(Vector2 direction)
+    {
+        if (overrideDirection == FacingDirection.Right)
+        {
+            return new Vector2(1, direction.y);
+        }
+
+        if (overrideDirection == FacingDirection.Left)
+        {
+            return new Vector2(-1, direction.y);
+        }
+
+        return direction;
+        
+    }
+
     // Dash function
     private void Dash(Vector2 direction) // Direction is a Vector2 to allow movement in all 4 quadrants
     {
         if (dashCount > 0)
         {
-            dashDirection += direction;
+            dashDirection += CalculateDashDirection(direction);
             playerMovementState = eMovementState.Dashing;
         }
         else
         {
             if (currentHealthValue > 4)
             {
-                dashDirection += direction;
+                dashDirection += CalculateDashDirection(direction);
                 playerMovementState = eMovementState.Dashing;
                 Sacrifice(4);
             }
 
         }
+
+        dashDirection = dashDirection.normalized;
     }
 
     // Intangible Dash function
