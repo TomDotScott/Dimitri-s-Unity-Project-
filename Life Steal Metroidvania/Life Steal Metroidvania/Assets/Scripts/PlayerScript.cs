@@ -179,7 +179,7 @@ public class PlayerScript : MonoBehaviour
         // TODO: Move all of these into a structure or class so Inputs are manageable in one place
 
         // These return true if they were pressed down on the current frame
-        bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP) || Input.GetKey(KeyCode.Space);
+        bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP) || Input.GetKeyDown(KeyCode.Space);
         if (jumpButtonPressed)
         {
             Debug.Log("Jumped");
