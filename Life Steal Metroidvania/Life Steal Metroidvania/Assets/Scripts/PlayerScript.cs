@@ -188,6 +188,7 @@ public class PlayerScript : MonoBehaviour
         {
             Debug.Log("Literally Nothing");
         }
+
         bool dashButtonPressed = Input.GetButtonDown(GameConstants.DASH);
         bool intangibleDashButtonPressed = Input.GetButtonDown(GameConstants.INTANGIBLE_DASH);
         bool grappleButtonPressed = Input.GetButtonDown(GameConstants.GRAPPLE);
@@ -671,12 +672,12 @@ public class PlayerScript : MonoBehaviour
 
     private Vector2 CalculateDashDirection(Vector2 direction)
     {
-        if (overrideDirection == FacingDirection.Right)
+        if (overrideDirection == FacingDirection.Right || facingDirection == FacingDirection.Right)
         {
             return new Vector2(1, direction.y);
         }
 
-        if (overrideDirection == FacingDirection.Left)
+        if (overrideDirection == FacingDirection.Left || facingDirection == FacingDirection.Left)
         {
             return new Vector2(-1, direction.y);
         }
@@ -690,6 +691,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (dashCount > 0)
         {
+            playerMovementState = eMovementState.Dashing;
             dashDirection += CalculateDashDirection(direction);
         }
         else
