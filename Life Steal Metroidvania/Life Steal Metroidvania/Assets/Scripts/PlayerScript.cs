@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
     [Range(0f, 100f)] public float dashSpeed;
 
     [Range(0f, 1f)] public float startDashTime;
-    private float dashTime = 0f;
+    [SerializeField] private float dashTime = 0f;
     private float dashIntangibilityCountdown;
     [SerializeField] private float dashIntangibilityCountdownTime;
     public LayerMask playerLayer;
