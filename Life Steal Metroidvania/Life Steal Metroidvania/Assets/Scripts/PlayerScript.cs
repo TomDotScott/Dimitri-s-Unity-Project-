@@ -692,13 +692,13 @@ public class PlayerScript : MonoBehaviour
         if (dashCount > 0)
         {
             playerMovementState = eMovementState.Dashing;
-            dashDirection += CalculateDashDirection(direction);
+            dashDirection += direction;
         }
         else
         {
             if (currentHealthValue > 4)
             {
-                dashDirection += CalculateDashDirection(direction);
+                dashDirection += direction;
                 playerMovementState = eMovementState.Dashing;
                 Sacrifice(4);
             }

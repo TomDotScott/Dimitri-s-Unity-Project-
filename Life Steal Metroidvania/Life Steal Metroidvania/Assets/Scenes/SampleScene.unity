@@ -1107,11 +1107,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  fallSpeed: 7.5
+  fallSpeed: 8
   glideDivisor: 10
   glideTime: 0.4
   dashSpeed: 39
-  startDashTime: 0.5
+  startDashTime: 0.45
+  dashTime: 0.45
   dashIntangibilityCountdownTime: 5
   playerLayer:
     serializedVersion: 2
