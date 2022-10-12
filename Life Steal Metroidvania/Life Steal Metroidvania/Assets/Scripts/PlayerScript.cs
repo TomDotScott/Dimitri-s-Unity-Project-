@@ -497,7 +497,8 @@ public class PlayerScript : MonoBehaviour
         {
             if (dashDirection.x != 0 && dashDirection.y != 0)
             {
-                rb.velocity = dashDirection * CalculateDiagonalDashSpeed();
+                float diagonalDash = CalculateDiagonalDashSpeed();
+                rb.velocity = dashDirection * diagonalDash;
             }
             else
             {
@@ -661,7 +662,7 @@ public class PlayerScript : MonoBehaviour
 
         }
 
-        dashDirection = dashDirection.normalized;
+        //dashDirection = dashDirection.normalized;
     }
 
     // Intangible Dash function
