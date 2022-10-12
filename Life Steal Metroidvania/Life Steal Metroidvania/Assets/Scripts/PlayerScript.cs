@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
     [Range(0f, 100f)] public float dashSpeed;
 
     [Range(0f, 1f)] public float startDashTime;
-    [SerializeField] private float dashTime = 0f;
+    private float dashTime = 0f;
     private float dashIntangibilityCountdown;
     [SerializeField] private float dashIntangibilityCountdownTime;
     public LayerMask playerLayer;
@@ -82,7 +82,6 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Establishing the facingRight variable
-    private FacingDirection overrideDirection = FacingDirection.None;
     private FacingDirection facingDirection = FacingDirection.Right;
 
     private Vector2 previousPosition;
@@ -601,50 +600,8 @@ public class PlayerScript : MonoBehaviour
             {
                 facingDirection = FacingDirection.Right;
             }
-
-            // Step 2 - Override the press if the opposite direction is pressed whilst the other button is held down
-            if (facingDirection == FacingDirection.Right && left.buttonPressed)
-            {
-                overrideDirection = FacingDirection.Left;
-            }
-
-            if (facingDirection == FacingDirection.Left && right.buttonPressed)
-            {
-                overrideDirection = FacingDirection.Right;
-            }
-
-            // Step 3 - Remove the override if the override button has been released
-            if (left.buttonReleased && overrideDirection != FacingDirection.None)
-            {
-                if (overrideDirection == FacingDirection.Right)
-                {
-                    facingDirection = FacingDirection.Right;
-                }
-
-                overrideDirection = FacingDirection.None;
-            }
-
-            if (right.buttonReleased && overrideDirection != FacingDirection.None)
-            {
-                if (overrideDirection == FacingDirection.Left)
-                {
-                    facingDirection = FacingDirection.Left;
-                }
-
-                overrideDirection = FacingDirection.None;
-            }
-
-            // Step 4 - Apply the override if needed, else travel in the direction we want
-            // Enums can be converted into numbers, take a look at the definition, I set
-            // Left to -1 and Right to +1 with None as 0 so we can use it as our velocity
-            if (overrideDirection != FacingDirection.None)
-            {
-                rb.velocity = new Vector2((int)overrideDirection * moveSpeed, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2((int)facingDirection * moveSpeed, rb.velocity.y);
-            }
+            rb.velocity = new Vector2((int)facingDirection * moveSpeed, rb.velocity.y);
+            
 
             // Step 5 - Flip the sprite depending on the direction we decided to go
             if (rb.velocity.x < 0)
@@ -665,19 +622,18 @@ public class PlayerScript : MonoBehaviour
             // If we're not pressing the walk buttons, stop and set to idle 
             rb.velocity = new Vector2(0, rb.velocity.y);
             playerMovementState = eMovementState.Idle;
-            overrideDirection = FacingDirection.None;
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
     }
 
     private Vector2 CalculateDashDirection(Vector2 direction)
     {
-        if (overrideDirection == FacingDirection.Right || facingDirection == FacingDirection.Right)
+        if (facingDirection == FacingDirection.Right)
         {
             return new Vector2(1, direction.y);
         }
 
-        if (overrideDirection == FacingDirection.Left || facingDirection == FacingDirection.Left)
+        if (facingDirection == FacingDirection.Left)
         {
             return new Vector2(-1, direction.y);
         }
