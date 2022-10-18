@@ -485,13 +485,10 @@ public class PlayerScript : MonoBehaviour
         // Making player walk at the moveSpeed variable
         if (playerMovementState != eMovementState.Dashing)
         {
-            if (playerMovementState != eMovementState.WallClinging)
-            {
                 Move(
                     new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
                     new InputButton(rightButtonPressed, rightButtonHeld, rightButtonReleased)
                 );
-            }
         }
         else
         {
