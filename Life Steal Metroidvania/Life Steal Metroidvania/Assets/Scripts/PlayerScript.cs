@@ -47,6 +47,7 @@ public class PlayerScript : MonoBehaviour
 
     // Establishing wall detection for the wall climb ability
     private bool onWall;
+    private bool canClimb = true;
 
     #endregion
 
@@ -442,7 +443,7 @@ public class PlayerScript : MonoBehaviour
         #endregion
 
         #region MOVEMENT_CODE
-        if (onWall)
+        if (onWall && canClimb)
         {
             if (wallClimbButtonHeld)
             {
@@ -476,7 +477,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (rb.gravityScale == 0)
+            if (rb.gravityScale == 0 && canClimb)
             {
                 rb.gravityScale = fallSpeed;
             }
@@ -856,11 +857,24 @@ public class PlayerScript : MonoBehaviour
     // or checkpoints
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit the climbing area");
         switch (collision.gameObject.tag)
         {
             case "Lava":
                 TouchingLava = true;
+                break;
+
+            case "Roof of Wall":
+                canClimb = false;
+                break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Roof of Wall":
+                canClimb = true;
                 break;
         }
     }
