@@ -430,8 +430,11 @@ public class PlayerScript : MonoBehaviour
             {
                 playerAerialState = eAerialState.Falling;
             }
-
-            rb.gravityScale = fallSpeed;
+            if (playerMovementState != eMovementState.WallClinging)
+            {
+                rb.gravityScale = fallSpeed;
+                Debug.Log("435");
+            }
         }
 
         // Wall Jump + Wall Resource Restoration
@@ -469,10 +472,12 @@ public class PlayerScript : MonoBehaviour
                 }
                 else
                 {
-                    rb.gravityScale = fallSpeed;
+                    if (playerMovementState != eMovementState.WallClinging)
+                    {
+                        rb.gravityScale = fallSpeed;
+                        Debug.Log("473");
+                    }
                 }
-
-                playerMovementState = eMovementState.Idle;
             }
         }
         else
@@ -480,18 +485,19 @@ public class PlayerScript : MonoBehaviour
             if (rb.gravityScale == 0 && canClimb)
             {
                 rb.gravityScale = fallSpeed;
+                Debug.Log("485");
             }
         }
 
         // Making player walk at the moveSpeed variable
-        if (playerMovementState != eMovementState.Dashing)
+        if (playerMovementState != eMovementState.Dashing && playerMovementState != eMovementState.WallClinging)
         {
                 Move(
                     new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
                     new InputButton(rightButtonPressed, rightButtonHeld, rightButtonReleased)
                 );
         }
-        else
+        else if (playerMovementState == eMovementState.Dashing)
         {
             if (dashDirection.x != 0 && dashDirection.y != 0)
             {
