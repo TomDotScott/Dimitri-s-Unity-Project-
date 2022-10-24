@@ -446,12 +446,12 @@ public class PlayerScript : MonoBehaviour
         #endregion
 
         #region MOVEMENT_CODE
-        if (onWall && canClimb)
+        if (onWall)
         {
             if (wallClimbButtonHeld)
             {
                 float verticalMovementValue = 0f;
-                if (upButtonHeld)
+                if (upButtonHeld && canClimb)
                 {
                     verticalMovementValue += 1f;
                 }
