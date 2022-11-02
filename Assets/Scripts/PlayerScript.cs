@@ -21,7 +21,8 @@ public class PlayerScript : MonoBehaviour
     // Establishing moveSpeed variable
     [Range(10f, 200f)] public float moveSpeed;
 
-
+    public PhysicsMaterial2D slipperyMat;
+    public PhysicsMaterial2D stickyMat;
 
     public float fallSpeed;
     public float glideDivisor;
@@ -66,6 +67,8 @@ public class PlayerScript : MonoBehaviour
         Jumping,
         Falling,
         Gliding,
+        WallPushing,
+        WallJump,
     }
 
     [Header("Player State")]
@@ -108,6 +111,7 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
     private bool onTopOfWall;
+    [SerializeField] private float wallPushAwayValue;
 
     #region HEALTH_VARIABLES
     [Header("Player Health")]
@@ -216,15 +220,17 @@ public class PlayerScript : MonoBehaviour
         {
             extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
+            rb.sharedMaterial = stickyMat;
+        }
+
+        else
+        {
+            rb.sharedMaterial = slipperyMat;
         }
 
         // Dash Code
-        if (playerAerialState == eAerialState.Grounded)
-        {
-            dashCount = dashCountValue;
-        }
-
         #region DASH_CODE
+
         // Input for Dash
         if (dashDirection == Vector2.zero)
         {
@@ -450,20 +456,39 @@ public class PlayerScript : MonoBehaviour
         {
             if (wallClimbButtonHeld)
             {
-                float verticalMovementValue = 0f;
-                if (upButtonHeld && canClimb)
+                if (jumpButtonPressed)
                 {
-                    verticalMovementValue += 1f;
+                    if (facingDirection == FacingDirection.Right)
+                    {
+                        rb.velocity = new Vector2(-wallPushAwayValue, jumpHeight);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(wallPushAwayValue, jumpHeight);
+                    }
+
+                    playerAerialState = eAerialState.WallPushing;
+                    rb.gravityScale = fallSpeed;
                 }
 
-                if (downButtonHeld)
+                else
                 {
-                    verticalMovementValue -= 1f;
+                    float verticalMovementValue = 0f;
+                    if (upButtonHeld && canClimb)
+                    {
+                        verticalMovementValue += 1f;
+                    }
+
+                    if (downButtonHeld)
+                    {
+                        verticalMovementValue -= 1f;
+                    }
+                    rb.velocity = new Vector2(rb.velocity.x, verticalMovementValue * moveSpeed);
+                    rb.gravityScale = 0f;
+                    playerMovementState = eMovementState.WallClinging;
                 }
-                rb.velocity = new Vector2(rb.velocity.x, verticalMovementValue * moveSpeed);
-                rb.gravityScale = 0f;
-                playerMovementState = eMovementState.WallClinging;
             }
+
             else
             {
                 if (playerAerialState == eAerialState.Gliding)
@@ -490,7 +515,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Making player walk at the moveSpeed variable
-        if (playerMovementState != eMovementState.Dashing)
+        if (playerMovementState != eMovementState.Dashing /* && playerAerialState != eAerialState.WallPushing*/)
         {
                 Move(
                     new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
@@ -625,7 +650,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             // If we're not pressing the walk buttons, stop and set to idle 
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            //rb.velocity = new Vector2(0, rb.velocity.y);
             playerMovementState = eMovementState.Idle;
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
