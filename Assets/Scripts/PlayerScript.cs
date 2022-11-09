@@ -805,28 +805,30 @@ public class PlayerScript : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Ground":
-                playerAerialState = eAerialState.Grounded;
-                ResetDash();
-                dashCount = dashCountValue;
-                glideTimeCountdown = glideTime;
-
-                break;
             case "Wall":
+
+                // 0 = Top, 1 = Right Side, 2 = Bottom, 3 = Left Side (Travels clockwise, +1 per side) of polygon
+                List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
+                collision.GetContacts(contactPoints);
+                if (contactPoints[0].normal.y > 0)
                 {
-                    // 0 = Top, 1 = Right Side, 2 = Bottom, 3 = Left Side (Travels clockwise, +1 per side) of polygon
-                    List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
-                    collision.GetContacts(contactPoints);
-                    if (contactPoints[0].normal.y == 1)
+                    playerAerialState = eAerialState.Grounded;
+                    playerMovementState = eMovementState.Moving;
+
+                    ResetDash();
+                    dashCount = dashCountValue;
+
+                    glideTimeCountdown = glideTime;
+
+                    if (collision.gameObject.CompareTag("Wall"))
                     {
-                        playerAerialState = eAerialState.Grounded;
                         onTopOfWall = true;
                         onWall = false;
-                        playerMovementState = eMovementState.Moving;
-
-                        ResetDash();
-                        dashCount = dashCountValue;
                     }
+                }
 
+                if (collision.gameObject.CompareTag("Wall"))
+                {
                     if (contactPoints[1].normal.x == 1)
                     {
                         onWall = true;
@@ -836,9 +838,10 @@ public class PlayerScript : MonoBehaviour
                     {
                         onWall = true;
                     }
-
-                    break;
                 }
+
+                break;
+
             case "Enemy":
                 Debug.Log("Enemy Collision Detected");
                 if (isIntangible == false)
