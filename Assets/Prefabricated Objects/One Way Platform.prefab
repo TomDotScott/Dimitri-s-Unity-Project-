@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3239904093448813683}
   - component: {fileID: 354210963828973051}
   - component: {fileID: 354210963828973052}
-  - component: {fileID: 354210963828973053}
   m_Layer: 8
   m_Name: One Way Platform
   m_TagString: Ground
@@ -128,24 +127,11 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 170
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
 --- !u!114 &354210963828973052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239904093448813682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f734edda4f7274df2ae366106d4fbcb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformWaitTime: 0
---- !u!114 &354210963828973053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

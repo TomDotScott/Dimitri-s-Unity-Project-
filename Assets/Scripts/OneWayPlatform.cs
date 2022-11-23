@@ -18,25 +18,22 @@ public class OneWayPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.DownArrow))
+        platformWaitTime -= Time.deltaTime;
+
+        if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             platformWaitTime = 0.5f;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            if (platformWaitTime <= 0)
-            {
-                effector.rotationalOffset = 180f;
-                platformWaitTime = 0.5f;
-            } else {
-                platformWaitTime -= Time.deltaTime;
-            }
+            effector.rotationalOffset = 180f;
+            platformWaitTime = 0.5f;
         }
 
-        if (jumpButtonHeld)
+        if (platformWaitTime <= 0)
         {
-            effector.rotationalOffset = 0;
+            effector.rotationalOffset = 0f;
         }
     }
 }
