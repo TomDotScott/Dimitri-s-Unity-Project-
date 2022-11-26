@@ -1177,8 +1177,8 @@ MonoBehaviour:
   fallSpeed: 8
   glideDivisor: 10
   glideTime: 0.4
-  dashSpeed: 39
-  startDashTime: 0.45
+  dashSpeed: 60
+  startDashTime: 0.3
   dashIntangibilityCountdownTime: 5
   playerLayer:
     serializedVersion: 2

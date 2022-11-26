@@ -557,6 +557,11 @@ public class PlayerScript : MonoBehaviour
             // currentHealthValue - 2 * Time.deltaTime;
         }
         */
+
+        if (rb.velocity.x > 5)
+        {
+            Debug.Log("Gotta go fast");
+        }
     }
 
 
