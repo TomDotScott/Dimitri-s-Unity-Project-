@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameConstants
 {
+    public static string PLAYER_TAG => "Player";
+
     public static string LEFT_BUTTON => "Left";
 
     public static string RIGHT_BUTTON => "Right";

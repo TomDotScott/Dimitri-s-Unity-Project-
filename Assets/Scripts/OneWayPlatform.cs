@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
 {
+    private bool playerOnTop = false;
     bool jumpButtonHeld = Input.GetButton(GameConstants.JUMP) || Input.GetKey(KeyCode.Space);
 
     private PlatformEffector2D effector;
@@ -20,20 +21,39 @@ public class OneWayPlatform : MonoBehaviour
     {
         platformWaitTime -= Time.deltaTime;
 
-        if (Input.GetKeyUp(KeyCode.DownArrow))
+        if (playerOnTop == true)
         {
-            platformWaitTime = 0.5f;
-        }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            effector.rotationalOffset = 180f;
-            platformWaitTime = 0.5f;
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                platformWaitTime = 0.5f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                effector.rotationalOffset = 180f;
+                platformWaitTime = 0.5f;
+            }
         }
 
         if (platformWaitTime <= 0)
         {
             effector.rotationalOffset = 0f;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(GameConstants.PLAYER_TAG))
+        {
+            playerOnTop = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(GameConstants.PLAYER_TAG))
+        {
+            playerOnTop = false;
         }
     }
 }
