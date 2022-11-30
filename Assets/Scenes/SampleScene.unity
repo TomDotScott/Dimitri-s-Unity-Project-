@@ -819,7 +819,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5328639, y: 1}
+    m_SensorSize: {x: 2.37479, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1196,14 +1196,14 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.4285715
-      outSlope: 1.4285715
+      inSlope: 2.0338774
+      outSlope: 2.0338774
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7
+      time: 0.49167174
       value: 1
       inSlope: 0
       outSlope: 0
@@ -1214,8 +1214,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -3.3333333
-      outSlope: -3.3333333
+      inSlope: -1.9672327
+      outSlope: -1.9672327
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1223,7 +1223,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 39
+  jumpHeight: 42
   jumpDuration: 0.4
   extraJumps: 1
   extraJumpsValue: 1
