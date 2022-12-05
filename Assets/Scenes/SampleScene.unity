@@ -819,7 +819,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.37479, y: 1}
+    m_SensorSize: {x: 2.658858, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1228,6 +1228,7 @@ MonoBehaviour:
   extraJumps: 1
   extraJumpsValue: 1
   wallPushAwayValue: 15
+  wallPushUpValue: 100
   totalHealthValue: 20
   currentHealthValue: 20
   isPlayerDead: 0
@@ -1572,7 +1573,7 @@ PrefabInstance:
     - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 15.000096
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
         type: 3}
