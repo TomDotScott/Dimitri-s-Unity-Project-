@@ -112,6 +112,7 @@ public class PlayerScript : MonoBehaviour
 
     private bool onTopOfWall;
     [SerializeField] private float wallPushAwayValue;
+    [SerializeField] private float wallPushUpValue;
 
     #region HEALTH_VARIABLES
     [Header("Player Health")]
@@ -328,6 +329,7 @@ public class PlayerScript : MonoBehaviour
         // If we run out of jumps and still want to, sacrifice some health
         if (jumpButtonPressed &&
             extraJumps <= 0 &&
+            !onWall &&
             (playerAerialState == eAerialState.Jumping || playerAerialState == eAerialState.Falling) &&
             currentHealthValue > 4) // TODO: Change these Fours to be in one variable, this will be very annoying if we want to change all of them
         {
@@ -458,17 +460,28 @@ public class PlayerScript : MonoBehaviour
             {
                 if (jumpButtonPressed)
                 {
-                    if (facingDirection == FacingDirection.Right)
+                    if (upButtonHeld)
                     {
-                        rb.velocity = new Vector2(-wallPushAwayValue, jumpHeight);
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector2(wallPushAwayValue, jumpHeight);
+                        // playerAerialState = eAerialState.WallPushing;
+                        rb.velocity = new Vector2(rb.velocity.x, wallPushUpValue);
                     }
 
-                    playerAerialState = eAerialState.WallPushing;
-                    rb.gravityScale = fallSpeed;
+                    else
+                    {
+
+                        // This is what pushes us off the wall
+                        if (facingDirection == FacingDirection.Right)
+                        {
+                            rb.velocity = new Vector2(-wallPushAwayValue, jumpHeight);
+                        }
+                        else
+                        {
+                            rb.velocity = new Vector2(wallPushAwayValue, jumpHeight);
+                        }
+
+                        playerAerialState = eAerialState.WallPushing;
+                        rb.gravityScale = fallSpeed;
+                    }
                 }
 
                 else
