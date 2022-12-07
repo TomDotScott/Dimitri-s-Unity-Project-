@@ -111,7 +111,7 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
     private bool onTopOfWall;
-    [SerializeField] private float wallPushAwayValue;
+    [SerializeField] private Vector2 wallPushAwayValue;
     [SerializeField] private float wallPushUpValue;
 
     #region HEALTH_VARIABLES
@@ -472,11 +472,11 @@ public class PlayerScript : MonoBehaviour
                         // This is what pushes us off the wall
                         if (facingDirection == FacingDirection.Right)
                         {
-                            rb.velocity = new Vector2(-wallPushAwayValue, jumpHeight);
+                            rb.velocity = wallPushAwayValue * new Vector2(-1, 1);
                         }
                         else
                         {
-                            rb.velocity = new Vector2(wallPushAwayValue, jumpHeight);
+                            rb.velocity = wallPushAwayValue;
                         }
 
                         playerAerialState = eAerialState.WallPushing;
