@@ -1227,7 +1227,7 @@ MonoBehaviour:
   jumpDuration: 0.4
   extraJumps: 1
   extraJumpsValue: 1
-  wallPushAwayValue: 15
+  wallPushAwayValue: {x: 15, y: 32.5}
   wallPushUpValue: 75
   totalHealthValue: 20
   currentHealthValue: 20
