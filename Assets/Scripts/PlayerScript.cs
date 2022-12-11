@@ -550,6 +550,12 @@ public class PlayerScript : MonoBehaviour
             playerMovementState = eMovementState.Dashing;
         }
 
+        if (touchingLava == true)
+        {
+            dashCount = dashCountValue;
+            extraJumps = extraJumpsValue;
+        }
+
         #endregion
 
         // Beast Mode Code
