@@ -136,6 +136,20 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private bool touchingSpike;
+    public bool TouchingSpike
+    {
+        get => touchingSpike;
+        set
+        {
+            if (value == true)
+            {
+                TakeDamage(4);
+            }
+            touchingSpike = value;
+        }
+    }
+
     // Establishing death
     [SerializeField] private bool isPlayerDead;
     #endregion
@@ -923,6 +937,10 @@ public class PlayerScript : MonoBehaviour
 
             case "Roof of Wall":
                 canClimb = false;
+                break;
+
+            case "Spike":
+                TouchingSpike = true;
                 break;
         }
     }

@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Enemy
   - Lava
+  - Roof of Wall
+  - Spike
   layers:
   - Default
   - TransparentFX

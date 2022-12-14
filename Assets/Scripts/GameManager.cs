@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
             player.Teleport(FindNearestLavaRespawnPoint());
             player.SetAirState(PlayerScript.eAerialState.Grounded);
             player.TouchingLava = false;
+        } else if (player.TouchingSpike)
+        {
+            player.Teleport(FindNearestLavaRespawnPoint());
+            player.SetAirState(PlayerScript.eAerialState.Grounded);
+            player.TouchingSpike = false;
         }
     }
 
