@@ -804,6 +804,11 @@ public class PlayerScript : MonoBehaviour
         // Damage over time code here
     }
 
+    public void FullHeal()
+    {
+        currentHealthValue = totalHealthValue;
+    }
+
     // Killing the player and triggering a respawn
     public void KillPlayer()
     {
