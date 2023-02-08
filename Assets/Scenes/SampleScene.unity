@@ -1042,6 +1042,7 @@ GameObject:
   - component: {fileID: 830207670}
   - component: {fileID: 830207674}
   - component: {fileID: 830207676}
+  - component: {fileID: 830207675}
   m_Layer: 11
   m_Name: Maine
   m_TagString: Player
@@ -1240,6 +1241,20 @@ MonoBehaviour:
   isPlayerDead: 0
   hangTime: 0.4
   jumpBufferLength: 0.1
+--- !u!114 &830207675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830207669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d34d98c6fe0347408d308c2309f51c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxGroundDistance: 1.5
+  jumpHeight: 39
 --- !u!95 &830207676
 Animator:
   serializedVersion: 3
@@ -1329,6 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958117dc86d39406eb5b6d9d102a4211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  withinCampfireRadius: 0
 --- !u!1001 &1099660662
 PrefabInstance:
   m_ObjectHideFlags: 0

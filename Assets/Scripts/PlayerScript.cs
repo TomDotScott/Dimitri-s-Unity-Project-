@@ -338,49 +338,7 @@ public class PlayerScript : MonoBehaviour
 
         #region JUMP_CODE
         // Jump Code
-        hangCountdown -= Time.deltaTime;
-
-        // If we run out of jumps and still want to, sacrifice some health
-        if (jumpButtonPressed &&
-            extraJumps <= 0 &&
-            !onWall &&
-            (playerAerialState == eAerialState.Jumping || playerAerialState == eAerialState.Falling) &&
-            currentHealthValue > 4) // TODO: Change these Fours to be in one variable, this will be very annoying if we want to change all of them
-        {
-            Sacrifice(4);
-            Jump();
-        }
-
-        if (jumpButtonPressed)
-        {
-            // If we're gliding, we want to be able to use our double jump
-            if (playerAerialState == eAerialState.Gliding && extraJumps > 0)
-            {
-                Jump();
-                extraJumps--;
-                Debug.Log("A");
-            }
-
-            if (playerAerialState == eAerialState.Grounded)
-            {
-                // Normal jump if we're on the ground
-                Jump();
-            }
-            else if (playerAerialState == eAerialState.Falling && hangCountdown >= 0)
-            {
-                Jump();
-                Debug.Log("Hang Time Activity");
-            }
-            else if (extraJumps > 0 && playerAerialState == eAerialState.Falling)
-            {
-                // Use up our double jump!
-                Jump();
-                extraJumps--;
-                Debug.Log("B");
-            }
-        }
-
-
+        hangCountdown -= Time.deltaTime;      
 
         // Hang Time (Coyote Time)
         if (playerAerialState == eAerialState.Grounded)
@@ -478,6 +436,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         // playerAerialState = eAerialState.WallPushing;
                         rb.velocity = new Vector2(rb.velocity.x, wallPushUpValue);
+                        Debug.Break();
                     }
 
                     else
@@ -767,17 +726,51 @@ public class PlayerScript : MonoBehaviour
         extraJumps = extraJumpsValue;
     }
 
-    // Jump function
-    private void Jump()
+    private void EvaluateJump()
     {
-        if (playerMovementState != eMovementState.Dashing)
+        throw new NotImplementedException();
+    }
+
+    // Jump function
+        private void Jump(bool jumpButtonPressed)
         {
+            if (!jumpButtonPressed) return;
+            if (playerMovementState == eMovementState.Dashing) return;
+
+            // If we're gliding, we want to be able to use our double jump
+            if (playerAerialState == eAerialState.Gliding && extraJumps > 0)
+            {
+                extraJumps--;
+            }
+
+            if (playerAerialState == eAerialState.Grounded)
+            {
+                EvaluateJump();
+            }
+            else if (playerAerialState == eAerialState.Falling && hangCountdown >= 0)
+            {
+                EvaluateJump();
+            }
+            else if (extraJumps > 0 && playerAerialState == eAerialState.Falling)
+            {
+                // Use up our double jump!
+                EvaluateJump();
+                extraJumps--;
+            }
+
+            if (extraJumps <= 0 && currentHealthValue > 4)
+            {
+                Sacrifice(4);
+                EvaluateJump();
+            }
+
+
             playerAerialState = eAerialState.Jumping;
             glideTimeCountdown = glideTime;
         }
-    }
 
-    private void Glide()
+
+        private void Glide()
     {
         playerAerialState = eAerialState.Gliding;
     }
@@ -872,14 +865,10 @@ public class PlayerScript : MonoBehaviour
 
                 if (collision.gameObject.CompareTag("Wall"))
                 {
-                    if (contactPoints[1].normal.x == 1)
+                    if (contactPoints[1].normal.x == 1 || transform.position.x <= collision.gameObject.transform.position.x)
                     {
                         onWall = true;
-                    }
-
-                    if (transform.position.x <= collision.gameObject.transform.position.x)
-                    {
-                        onWall = true;
+                        canClimb = true;
                     }
                 }
 
@@ -905,15 +894,13 @@ public class PlayerScript : MonoBehaviour
         {
             case "Wall":
                 {
-                    if (onTopOfWall)
+                    if (onTopOfWall && playerAerialState != eAerialState.Jumping)
                     {
-                       if (playerAerialState != eAerialState.Jumping)
-                       {
                            playerAerialState = eAerialState.Falling;
-                       }
                     }
                     onWall = false;
                     onTopOfWall = false;
+                    canClimb = false;
                     hangCountdown = hangTime;
                     break;
                 }
