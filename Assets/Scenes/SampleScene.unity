@@ -1255,6 +1255,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxGroundDistance: 1.5
   jumpHeight: 39
+  coyoteTime: 0.2
+  jumpBuffer: 0.1
+  extraJumps: 1
 --- !u!95 &830207676
 Animator:
   serializedVersion: 3
