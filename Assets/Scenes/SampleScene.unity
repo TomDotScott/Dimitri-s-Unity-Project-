@@ -700,7 +700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.62, y: 17.09, z: -10}
+  m_LocalPosition: {x: -13.12, y: 32.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -819,7 +819,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.5193799, y: 1}
+    m_SensorSize: {x: 3.052101, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -836,7 +836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651386709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.62, y: 17.09, z: -10}
+  m_LocalPosition: {x: -13.12, y: 32.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1886122923}
@@ -1158,7 +1158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830207669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.62, y: 9.59, z: 0}
+  m_LocalPosition: {x: -13.12, y: 24.52, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 1107479221}
@@ -1197,43 +1197,6 @@ MonoBehaviour:
   dashCountValue: 1
   playerMovementState: 0
   playerAerialState: 0
-  jumpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.0338774
-      outSlope: 2.0338774
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.49167174
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -1.9672327
-      outSlope: -1.9672327
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  jumpHeight: 42
-  jumpDuration: 0.4
-  extraJumps: 1
-  extraJumpsValue: 1
   wallPushAwayValue: {x: 15, y: 32.5}
   wallPushUpValue: 75
   totalHealthValue: 20
@@ -1256,8 +1219,9 @@ MonoBehaviour:
   maxGroundDistance: 1.5
   jumpHeight: 39
   coyoteTime: 0.2
-  jumpBuffer: 0.1
+  jumpBuffer: 0.3
   extraJumps: 1
+  sacrificeAmount: 4
 --- !u!95 &830207676
 Animator:
   serializedVersion: 3
@@ -1667,13 +1631,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
+        type: 3}
       propertyPath: m_LocalScale.y
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.52
+      value: -16.4602
       objectReference: {fileID: 0}
     - target: {fileID: 6087482527878964678, guid: 5ef15734779e14329ae39dc7d209cdae,
         type: 3}

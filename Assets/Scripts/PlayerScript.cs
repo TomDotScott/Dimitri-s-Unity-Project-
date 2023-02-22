@@ -89,7 +89,7 @@ public class PlayerScript : MonoBehaviour
     private FacingDirection facingDirection = FacingDirection.Right;
 
     private Vector2 previousPosition;
-
+/*
     #region JUMP_VARIABLES
     [Header("Jumping Variables")]
     // The jump curve will describe the y velocity for the duration of the jump...
@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
 
     public int extraJumpsValue;
     #endregion
-
+*/
     private bool onTopOfWall;
     [SerializeField] private Vector2 wallPushAwayValue;
     [SerializeField] private float wallPushUpValue;
@@ -173,7 +173,7 @@ public class PlayerScript : MonoBehaviour
         // Giving the player Rigidbody (Making them a solid, physics based object)
         rb = GetComponent<Rigidbody2D>();
         dashDirection = Vector2.zero;
-        extraJumps = extraJumpsValue;
+        //extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         dashTime = startDashTime;
         dashIntangibilityCountdown = 0f;
@@ -233,7 +233,7 @@ public class PlayerScript : MonoBehaviour
 
         if (playerAerialState == eAerialState.Grounded)
         {
-            extraJumps = extraJumpsValue;
+            //extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
             rb.sharedMaterial = stickyMat;
         }
@@ -345,7 +345,7 @@ public class PlayerScript : MonoBehaviour
         {
             hangCountdown = hangTime;
         }
-
+/*
         // Jump Buffer
         jumpBufferCount -= Time.deltaTime;
         if (jumpButtonPressed)
@@ -380,7 +380,7 @@ public class PlayerScript : MonoBehaviour
         {
             airTime = 0.0f;
         }
-
+*/
 
         // Glide Code
         if (playerAerialState != eAerialState.Grounded)
@@ -420,7 +420,7 @@ public class PlayerScript : MonoBehaviour
         // Wall Jump + Wall Resource Restoration
         if (playerMovementState == eMovementState.WallClinging)
         {
-            extraJumps = extraJumpsValue;
+            //extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
         }
         #endregion
@@ -526,7 +526,7 @@ public class PlayerScript : MonoBehaviour
         if (touchingLava == true)
         {
             dashCount = dashCountValue;
-            extraJumps = extraJumpsValue;
+            //extraJumps = extraJumpsValue;
         }
 
         #endregion
@@ -723,7 +723,7 @@ public class PlayerScript : MonoBehaviour
     // Resetting double jump
     private void ResetDoubleJump()
     {
-        extraJumps = extraJumpsValue;
+        //extraJumps = extraJumpsValue;
     }
 
     private void EvaluateJump()
@@ -732,7 +732,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Jump function
-        private void Jump(bool jumpButtonPressed)
+       /* private void Jump(bool jumpButtonPressed)
         {
             if (!jumpButtonPressed) return;
             if (playerMovementState == eMovementState.Dashing) return;
@@ -768,7 +768,7 @@ public class PlayerScript : MonoBehaviour
             playerAerialState = eAerialState.Jumping;
             glideTimeCountdown = glideTime;
         }
-
+       */
 
         private void Glide()
     {
@@ -806,7 +806,7 @@ public class PlayerScript : MonoBehaviour
     public void KillPlayer()
     {
         isPlayerDead = true;
-        extraJumps = extraJumpsValue;
+        //extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         currentHealthValue = totalHealthValue;
     }
