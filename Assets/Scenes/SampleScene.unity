@@ -819,7 +819,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.052101, y: 1}
+    m_SensorSize: {x: 3.5193799, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1202,8 +1202,6 @@ MonoBehaviour:
   totalHealthValue: 20
   currentHealthValue: 20
   isPlayerDead: 0
-  hangTime: 0.4
-  jumpBufferLength: 0.1
 --- !u!114 &830207675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,7 +1218,7 @@ MonoBehaviour:
   jumpHeight: 39
   coyoteTime: 0.2
   jumpBuffer: 0.3
-  extraJumps: 1
+  extraJumps: 2
   sacrificeAmount: 4
 --- !u!95 &830207676
 Animator:
