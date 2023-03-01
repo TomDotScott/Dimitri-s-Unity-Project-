@@ -89,27 +89,6 @@ public class PlayerScript : MonoBehaviour
     private FacingDirection facingDirection = FacingDirection.Right;
 
     private Vector2 previousPosition;
-/*
-    #region JUMP_VARIABLES
-    [Header("Jumping Variables")]
-    // The jump curve will describe the y velocity for the duration of the jump...
-    [SerializeField] private AnimationCurve jumpCurve;
-
-    // The jump height is the maximum point that out jump can reach
-    [Range(10f, 100f)] public float jumpHeight;
-
-    // Jump Duration describes the total amount of time we want our character to be in the air for
-    [SerializeField] private float jumpDuration;
-
-    // Air time describes the amount of time that the player has been in the air for this jump
-    private float airTime;
-
-    // Establishing jumping and double jumping abilities
-    [SerializeField] private int extraJumps;
-
-    public int extraJumpsValue;
-    #endregion
-*/
     private bool onTopOfWall;
     [SerializeField] private Vector2 wallPushAwayValue;
     [SerializeField] private float wallPushUpValue;
@@ -156,13 +135,6 @@ public class PlayerScript : MonoBehaviour
 
     private bool beastMode;
 
-    [Header("Coyote Time and Jump Buffering")]
-    // Hang Time
-    [Range(0f, 2f)] public float hangTime = .2f;
-    private float hangCountdown;
-
-    [Range(0f, 2f)] public float jumpBufferLength = .1f;
-    private float jumpBufferCount;
     private FacingDirection right;
     #endregion
 
@@ -173,13 +145,11 @@ public class PlayerScript : MonoBehaviour
         // Giving the player Rigidbody (Making them a solid, physics based object)
         rb = GetComponent<Rigidbody2D>();
         dashDirection = Vector2.zero;
-        //extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         dashTime = startDashTime;
         dashIntangibilityCountdown = 0f;
 
         onTopOfWall = false;
-        hangCountdown = hangTime;
         currentHealthValue = totalHealthValue;
         isPlayerDead = false;
         takingDamage = false;
@@ -197,17 +167,7 @@ public class PlayerScript : MonoBehaviour
 
         // TODO: Move all of these into a structure or class so Inputs are manageable in one place
 
-        // These return true if they were pressed down on the current frame
         bool jumpButtonPressed = Input.GetButtonDown(GameConstants.JUMP) || Input.GetKeyDown(KeyCode.Space);
-        if (jumpButtonPressed)
-        {
-            Debug.Log("Jumped");
-        }
-        else
-        {
-            Debug.Log("Literally Nothing");
-        }
-
         bool dashButtonPressed = Input.GetButtonDown(GameConstants.DASH);
         bool intangibleDashButtonPressed = Input.GetButtonDown(GameConstants.INTANGIBLE_DASH);
         bool grappleButtonPressed = Input.GetButtonDown(GameConstants.GRAPPLE);
@@ -233,7 +193,6 @@ public class PlayerScript : MonoBehaviour
 
         if (playerAerialState == eAerialState.Grounded)
         {
-            //extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
             rb.sharedMaterial = stickyMat;
         }
@@ -336,51 +295,6 @@ public class PlayerScript : MonoBehaviour
         dashIntangibilityCountdown -= Time.deltaTime;
         #endregion
 
-        #region JUMP_CODE
-        // Jump Code
-        hangCountdown -= Time.deltaTime;      
-
-        // Hang Time (Coyote Time)
-        if (playerAerialState == eAerialState.Grounded)
-        {
-            hangCountdown = hangTime;
-        }
-/*
-        // Jump Buffer
-        jumpBufferCount -= Time.deltaTime;
-        if (jumpButtonPressed)
-        {
-            jumpBufferCount = jumpBufferLength;
-        }
-
-        if (playerAerialState == eAerialState.Jumping)
-        {
-            if (jumpButtonHeld && airTime <= jumpDuration)
-            {
-                // Add to our air time
-                airTime += Time.deltaTime;
-
-                // Work out how much velocity we need to give the player based on our curve...
-                // We want the minimum of our percentage and 1 (can't go above 100% here!)
-                float jumpPercentage = Mathf.Min(airTime / jumpDuration, 1.0f);
-
-                // Next, grab the value from the y-axis based on how much of the jump we have completed...
-                float curveY = jumpCurve.Evaluate(jumpPercentage);
-
-                // Finally, apply the upwards velocity equal to the y value from our curve...
-                rb.velocity = Vector2.up * jumpHeight * curveY;
-            }
-            else
-            {
-                playerAerialState = eAerialState.Falling;
-                hangCountdown -= Time.deltaTime;
-            }
-        }
-        else
-        {
-            airTime = 0.0f;
-        }
-*/
 
         // Glide Code
         if (playerAerialState != eAerialState.Grounded)
@@ -413,17 +327,15 @@ public class PlayerScript : MonoBehaviour
             if (playerMovementState != eMovementState.WallClinging)
             {
                 rb.gravityScale = fallSpeed;
-                Debug.Log("435");
             }
         }
 
         // Wall Jump + Wall Resource Restoration
         if (playerMovementState == eMovementState.WallClinging)
         {
-            //extraJumps = extraJumpsValue;
             dashCount = dashCountValue;
         }
-        #endregion
+
 
         #region MOVEMENT_CODE
         if (onWall)
@@ -432,11 +344,10 @@ public class PlayerScript : MonoBehaviour
             {
                 if (jumpButtonPressed)
                 {
-                    if (upButtonHeld)
+                    if (upButtonHeld && canClimb)
                     {
                         // playerAerialState = eAerialState.WallPushing;
                         rb.velocity = new Vector2(rb.velocity.x, wallPushUpValue);
-                        Debug.Break();
                     }
 
                     else
@@ -486,7 +397,6 @@ public class PlayerScript : MonoBehaviour
                     if (playerMovementState != eMovementState.WallClinging)
                     {
                         rb.gravityScale = fallSpeed;
-                        Debug.Log("473");
                     }
                 }
             }
@@ -496,7 +406,6 @@ public class PlayerScript : MonoBehaviour
             if (rb.gravityScale == 0 && canClimb)
             {
                 rb.gravityScale = fallSpeed;
-                Debug.Log("485");
             }
         }
 
@@ -526,7 +435,6 @@ public class PlayerScript : MonoBehaviour
         if (touchingLava == true)
         {
             dashCount = dashCountValue;
-            //extraJumps = extraJumpsValue;
         }
 
         #endregion
@@ -549,11 +457,6 @@ public class PlayerScript : MonoBehaviour
             // currentHealthValue - 2 * Time.deltaTime;
         }
         */
-
-        if (rb.velocity.x > 5)
-        {
-            Debug.Log("Gotta go fast");
-        }
     }
 
 
@@ -687,8 +590,6 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
-        //dashDirection = dashDirection.normalized;
     }
 
     // Intangible Dash function
@@ -717,60 +618,9 @@ public class PlayerScript : MonoBehaviour
         dashDirection = Vector2.zero;
         rb.velocity = Vector2.zero;
         playerMovementState = eMovementState.Moving;
-        ResetDoubleJump();
     }
 
-    // Resetting double jump
-    private void ResetDoubleJump()
-    {
-        //extraJumps = extraJumpsValue;
-    }
-
-    private void EvaluateJump()
-    {
-        throw new NotImplementedException();
-    }
-
-    // Jump function
-       /* private void Jump(bool jumpButtonPressed)
-        {
-            if (!jumpButtonPressed) return;
-            if (playerMovementState == eMovementState.Dashing) return;
-
-            // If we're gliding, we want to be able to use our double jump
-            if (playerAerialState == eAerialState.Gliding && extraJumps > 0)
-            {
-                extraJumps--;
-            }
-
-            if (playerAerialState == eAerialState.Grounded)
-            {
-                EvaluateJump();
-            }
-            else if (playerAerialState == eAerialState.Falling && hangCountdown >= 0)
-            {
-                EvaluateJump();
-            }
-            else if (extraJumps > 0 && playerAerialState == eAerialState.Falling)
-            {
-                // Use up our double jump!
-                EvaluateJump();
-                extraJumps--;
-            }
-
-            if (extraJumps <= 0 && currentHealthValue > 4)
-            {
-                Sacrifice(4);
-                EvaluateJump();
-            }
-
-
-            playerAerialState = eAerialState.Jumping;
-            glideTimeCountdown = glideTime;
-        }
-       */
-
-        private void Glide()
+    private void Glide()
     {
         playerAerialState = eAerialState.Gliding;
     }
@@ -806,7 +656,6 @@ public class PlayerScript : MonoBehaviour
     public void KillPlayer()
     {
         isPlayerDead = true;
-        //extraJumps = extraJumpsValue;
         dashCount = dashCountValue;
         currentHealthValue = totalHealthValue;
     }
@@ -901,7 +750,6 @@ public class PlayerScript : MonoBehaviour
                     onWall = false;
                     onTopOfWall = false;
                     canClimb = false;
-                    hangCountdown = hangTime;
                     break;
                 }
             case "Ground":
@@ -911,7 +759,6 @@ public class PlayerScript : MonoBehaviour
                     playerAerialState = eAerialState.Falling;
                 }
 
-                hangCountdown = hangTime;
                 break;
         }
     }
