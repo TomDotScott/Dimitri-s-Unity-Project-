@@ -666,9 +666,15 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Health Sacrifice Mechanic
-    public void Sacrifice(float healthSacrificeAmount)
+    public bool Sacrifice(float healthSacrificeAmount)
     {
-        TakeDamage(healthSacrificeAmount);
+        if (currentHealthValue > healthSacrificeAmount)
+        {
+            TakeDamage(healthSacrificeAmount);
+            return true;
+        }
+
+        return false; 
     }
 
     public float GetPlayerHealth()

@@ -70,11 +70,11 @@ public class PlayerJump : MonoBehaviour
         {
             if (Input.GetButtonDown(GameConstants.JUMP))
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
-                extraJumpsValue--;
-
-
-                playerScript.Sacrifice(sacrificeAmount);
+                if (playerScript.Sacrifice(sacrificeAmount)) 
+            {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+                    extraJumpsValue--;
+                }
             }
         }
 
