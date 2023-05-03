@@ -78,7 +78,7 @@ public class PlayerScript : MonoBehaviour
     // Establishing the Rigidbody variable
     private Rigidbody2D rb;
 
-    enum FacingDirection
+    public enum FacingDirection
     {
         None = 0,
         Left = -1,
@@ -685,6 +685,11 @@ public class PlayerScript : MonoBehaviour
     public float GetMaxPlayerHealth()
     {
         return totalHealthValue;
+    }
+
+    public FacingDirection GetFacingDirection()
+    {
+        return facingDirection;
     }
 
     #region UNITY_EVENTS

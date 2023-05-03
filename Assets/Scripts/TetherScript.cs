@@ -38,11 +38,6 @@ public class TetherScript : MonoBehaviour
     {
         activeTime += Time.deltaTime;
         RenderTether();
-
-        if (currentState == TetherState.Straight)
-        {
-            StartCoroutine(ResetTether());
-        }
     }
 
     private IEnumerator ResetTether()
@@ -70,7 +65,7 @@ public class TetherScript : MonoBehaviour
         switch (currentState)
         {
             case TetherState.Firing:
-                if (lineRenderer.GetPosition(pointCount - 1).x == hookLaunchPoint.position.x)
+                if (lineRenderer.GetPosition(pointCount - 1).x == grapplePoint.position.x)
                 {
                     currentState = TetherState.Straightening;
                 }
