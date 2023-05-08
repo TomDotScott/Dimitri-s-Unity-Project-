@@ -40,10 +40,13 @@ public class TetherScript : MonoBehaviour
         RenderTether();
     }
 
-    private IEnumerator ResetTether()
+    public void ResetTether()
     {
-        yield return new WaitForSeconds(1);
-        InitializeTether();
+        //InitializeTether();
+        lineRenderer.positionCount = pointCount;
+        currentWaveHeight = waveHeightValue;
+        activeTime = 0;
+        currentState = TetherState.Firing;
     }
 
     private void InitializeTether()

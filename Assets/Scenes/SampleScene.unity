@@ -1360,7 +1360,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.9379845, y: 1}
+    m_SensorSize: {x: 3.415126, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2437,7 +2437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grapplePoint: {fileID: 732086467}
-  maxGrappleRange: 100
+  maxGrappleRange: 18
   grappleLayers:
     serializedVersion: 2
     m_Bits: 1024

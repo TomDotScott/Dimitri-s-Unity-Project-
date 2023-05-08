@@ -34,7 +34,8 @@ public class HookLauncher : MonoBehaviour
 
         else if (Input.GetButtonUp(GameConstants.GRAPPLE))
         {
-            isFiring = false; 
+            isFiring = false;
+            tether.ResetTether();
         }
 
         tether.gameObject.SetActive(isFiring);
@@ -55,11 +56,12 @@ public class HookLauncher : MonoBehaviour
             shootDirection = Vector2.right;
         }
         RaycastHit2D hit = Physics2D.Raycast(transform.position, shootDirection, maxGrappleRange, grappleLayers);
-        if (Vector2.Distance(hit.point, transform.position) < maxGrappleRange)
-            {
-                grapplePoint.position = hit.point;
-                return true;
-            }
+        Debug.DrawRay(transform.position, shootDirection * 1000, Color.green, 1);
+        if (Vector2.Distance(hit.point, transform.position) < maxGrappleRange && hit.collider != null)
+        {
+            grapplePoint.position = hit.point;
+            return true;
+        }
         return false;
     }
 }
