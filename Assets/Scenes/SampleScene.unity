@@ -363,10 +363,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   activeTime: 0
-  progressionSpeed: 1
+  progressionSpeed: 9
   pointCount: 40
-  waveHeightValue: 10
-  straightenSpeed: 2
+  waveHeightValue: 4
+  straightenSpeed: 30
 --- !u!4 &133350718
 Transform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.415126, y: 1}
+    m_SensorSize: {x: 3.9379845, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
