@@ -5,7 +5,6 @@ using UnityEngine;
 public class OneWayPlatform : MonoBehaviour
 {
     private bool playerOnTop = false;
-    bool jumpButtonHeld = Input.GetButton(GameConstants.JUMP) || Input.GetKey(KeyCode.Space);
 
     private PlatformEffector2D effector;
     public float platformWaitTime;
