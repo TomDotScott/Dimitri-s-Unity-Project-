@@ -10,6 +10,7 @@ public class HookLauncher : MonoBehaviour
     private bool isFiring;
     [SerializeField] private TetherScript tether;
     [SerializeField] private PlayerScript player;
+    [SerializeField] private float pullForce;
 
 
     // Start is called before the first frame update
@@ -27,11 +28,6 @@ public class HookLauncher : MonoBehaviour
             isFiring = Fire();
         }
 
-        else if (Input.GetButton(GameConstants.GRAPPLE))
-        {
-// TODO Call rope to grapple point, pull player to grapple point 
-        }
-
         else if (Input.GetButtonUp(GameConstants.GRAPPLE))
         {
             isFiring = false;
@@ -39,6 +35,14 @@ public class HookLauncher : MonoBehaviour
         }
 
         tether.gameObject.SetActive(isFiring);
+    }
+
+    private void FixedUpdate()
+    {
+        if (isFiring && tether.GetTetherState() == TetherScript.TetherState.Straight)
+        {
+            PullTowardsTarget();
+        }
     }
 
 
@@ -63,5 +67,16 @@ public class HookLauncher : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void PullTowardsTarget()
+    {
+        Vector2 direction = grapplePoint.position - transform.position;
+        float distance = direction.magnitude;
+        float forceMagnitude = distance * pullForce;
+        Vector2 force = direction.normalized * forceMagnitude;
+
+        Rigidbody2D playerRigidbody = player.gameObject.GetComponent<Rigidbody2D>();
+        playerRigidbody.AddForce(force);
     }
 }

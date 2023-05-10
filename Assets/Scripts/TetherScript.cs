@@ -20,7 +20,7 @@ public class TetherScript : MonoBehaviour
     private TetherState currentState;
 
 
-    private enum TetherState
+    public enum TetherState
     {
         Firing,
         Straightening,
@@ -38,6 +38,11 @@ public class TetherScript : MonoBehaviour
     {
         activeTime += Time.deltaTime;
         RenderTether();
+    }
+
+    public TetherState GetTetherState()
+    {
+        return currentState;
     }
 
     public void ResetTether()

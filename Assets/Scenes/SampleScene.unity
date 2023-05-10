@@ -363,10 +363,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   activeTime: 0
-  progressionSpeed: 9
+  progressionSpeed: 15
   pointCount: 40
   waveHeightValue: 4
-  straightenSpeed: 30
+  straightenSpeed: 75
 --- !u!4 &133350718
 Transform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.9379845, y: 1}
+    m_SensorSize: {x: 3.415126, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2440,9 +2440,10 @@ MonoBehaviour:
   maxGrappleRange: 18
   grappleLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1536
   tether: {fileID: 133350717}
   player: {fileID: 830207674}
+  pullForce: 250
 --- !u!1001 &1678239729
 PrefabInstance:
   m_ObjectHideFlags: 0
