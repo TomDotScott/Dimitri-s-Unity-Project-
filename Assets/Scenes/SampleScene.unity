@@ -2444,7 +2444,7 @@ MonoBehaviour:
   tether: {fileID: 133350717}
   player: {fileID: 830207674}
   pullForce: 250
-  minimumPullDistance: 0.8
+  minimumPullDistance: 2.75
   minimumMagnitude: 1750
   maximumMagnitude: 2000
 --- !u!1001 &1678239729

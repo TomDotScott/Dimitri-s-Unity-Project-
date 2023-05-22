@@ -33,7 +33,7 @@ public class HookLauncher : MonoBehaviour
 
         else if (Input.GetButtonUp(GameConstants.GRAPPLE))
         {
-            Detach();
+            ResetHook();
         }
 
         tether.gameObject.SetActive(isFiring);
@@ -83,13 +83,20 @@ public class HookLauncher : MonoBehaviour
         playerRigidbody.AddForce(force);
         if (distance < minimumPullDistance)
         {
-            Detach();
+            ResetAndStop();
         }
     }
 
-    private void Detach()
+    private void ResetHook()
     {
         isFiring = false;
         tether.ResetTether();
+    }
+
+    private void ResetAndStop()
+    {
+        ResetHook();
+        Rigidbody2D playerRigidbody = player.gameObject.GetComponent<Rigidbody2D>();
+        playerRigidbody.velocity = Vector2.zero;
     }
 }
