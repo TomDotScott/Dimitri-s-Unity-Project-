@@ -2444,6 +2444,8 @@ MonoBehaviour:
   tether: {fileID: 133350717}
   player: {fileID: 830207674}
   pullForce: 250
+  minimumPullDistance: 0.8
+  minimumMagnitude: 2500
 --- !u!1001 &1678239729
 PrefabInstance:
   m_ObjectHideFlags: 0

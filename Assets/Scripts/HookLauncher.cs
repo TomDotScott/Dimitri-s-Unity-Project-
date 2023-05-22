@@ -11,6 +11,8 @@ public class HookLauncher : MonoBehaviour
     [SerializeField] private TetherScript tether;
     [SerializeField] private PlayerScript player;
     [SerializeField] private float pullForce;
+    [SerializeField] private float minimumPullDistance;
+    [SerializeField] private float minimumMagnitude;
 
 
     // Start is called before the first frame update
@@ -30,8 +32,7 @@ public class HookLauncher : MonoBehaviour
 
         else if (Input.GetButtonUp(GameConstants.GRAPPLE))
         {
-            isFiring = false;
-            tether.ResetTether();
+            Detach();
         }
 
         tether.gameObject.SetActive(isFiring);
@@ -73,10 +74,21 @@ public class HookLauncher : MonoBehaviour
     {
         Vector2 direction = grapplePoint.position - transform.position;
         float distance = direction.magnitude;
-        float forceMagnitude = distance * pullForce;
+        float forceMagnitude = Mathf.Max(distance * pullForce, minimumMagnitude);
+        Debug.Log(distance * pullForce);
         Vector2 force = direction.normalized * forceMagnitude;
 
         Rigidbody2D playerRigidbody = player.gameObject.GetComponent<Rigidbody2D>();
         playerRigidbody.AddForce(force);
+        if (distance < minimumPullDistance)
+        {
+            Detach();
+        }
+    }
+
+    private void Detach()
+    {
+        isFiring = false;
+        tether.ResetTether();
     }
 }
