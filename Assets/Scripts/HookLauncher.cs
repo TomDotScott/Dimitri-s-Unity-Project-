@@ -13,6 +13,7 @@ public class HookLauncher : MonoBehaviour
     [SerializeField] private float pullForce;
     [SerializeField] private float minimumPullDistance;
     [SerializeField] private float minimumMagnitude;
+    [SerializeField] private float maximumMagnitude;
 
 
     // Start is called before the first frame update
@@ -74,7 +75,7 @@ public class HookLauncher : MonoBehaviour
     {
         Vector2 direction = grapplePoint.position - transform.position;
         float distance = direction.magnitude;
-        float forceMagnitude = Mathf.Max(distance * pullForce, minimumMagnitude);
+        float forceMagnitude = Mathf.Clamp(distance * pullForce, minimumMagnitude, maximumMagnitude);
         Debug.Log(distance * pullForce);
         Vector2 force = direction.normalized * forceMagnitude;
 
