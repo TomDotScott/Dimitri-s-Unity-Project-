@@ -340,8 +340,6 @@ public class PlayerScript : MonoBehaviour
         #region MOVEMENT_CODE
         if (onWall)
         {
-            if (wallClimbButtonHeld)
-            {
                 if (jumpButtonPressed)
                 {
                     if (upButtonHeld && canClimb)
@@ -385,22 +383,6 @@ public class PlayerScript : MonoBehaviour
                     playerMovementState = eMovementState.WallClinging;
                 }
             }
-
-            else
-            {
-                if (playerAerialState == eAerialState.Gliding)
-                {
-                    rb.gravityScale = fallSpeed / glideDivisor;
-                }
-                else
-                {
-                    if (playerMovementState != eMovementState.WallClinging)
-                    {
-                        rb.gravityScale = fallSpeed;
-                    }
-                }
-            }
-        }
         else
         {
             if (rb.gravityScale == 0 && canClimb)
@@ -408,6 +390,19 @@ public class PlayerScript : MonoBehaviour
                 rb.gravityScale = fallSpeed;
             }
         }
+
+        if (playerAerialState == eAerialState.Gliding)
+        {
+            rb.gravityScale = fallSpeed / glideDivisor;
+        }
+        else
+        {
+            if (playerMovementState != eMovementState.WallClinging)
+            {
+                rb.gravityScale = fallSpeed;
+            }
+        }
+
 
         // Making player walk at the moveSpeed variable
         if (playerMovementState != eMovementState.Dashing /* && playerAerialState != eAerialState.WallPushing*/)

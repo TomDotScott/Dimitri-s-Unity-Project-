@@ -14,6 +14,7 @@ public class HookLauncher : MonoBehaviour
     [SerializeField] private float minimumPullDistance;
     [SerializeField] private float minimumMagnitude;
     [SerializeField] private float maximumMagnitude;
+    private bool hitWall;
 
 
     // Start is called before the first frame update
@@ -65,6 +66,7 @@ public class HookLauncher : MonoBehaviour
         Debug.DrawRay(transform.position, shootDirection * 1000, Color.green, 1);
         if (Vector2.Distance(hit.point, transform.position) < maxGrappleRange && hit.collider != null)
         {
+            hitWall = hit.transform.CompareTag(GameConstants.WALL_TAG);
             grapplePoint.position = hit.point;
             return true;
         }
@@ -81,7 +83,7 @@ public class HookLauncher : MonoBehaviour
 
         Rigidbody2D playerRigidbody = player.gameObject.GetComponent<Rigidbody2D>();
         playerRigidbody.AddForce(force);
-        if (distance < minimumPullDistance)
+        if (distance < minimumPullDistance && hitWall == false)
         {
             ResetAndStop();
         }
