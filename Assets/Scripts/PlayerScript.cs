@@ -261,16 +261,23 @@ public class PlayerScript : MonoBehaviour
                 // Handle the normal dash in the facing direction
                 if (playerMovementState != eMovementState.Dashing)
                 {
-                    // TERNARY EXPRESSIONS:
-                    // CONDITION ? IF TRUE : ELSE
-                    // Changed the if-else into a ternary ?: operation... 
-                    Dash(facingDirection == FacingDirection.Right ? new Vector2(1, 0) : new Vector2(-1, 0));
+                    if (playerMovementState == eMovementState.WallClinging)
+                    {
+                        onWall = false;
+                        onTopOfWall = false;
+                        canClimb = false;
+                        Dash(facingDirection == FacingDirection.Right ? Vector2.left : Vector2.right);
+                    }
+                    else
+                    {
+                        Dash(facingDirection == FacingDirection.Right ? Vector2.right : Vector2.left);
+                    }
                 }
             }
 
-            // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
-            // dashCount 
-            if (playerMovementState == eMovementState.Dashing)
+                // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
+                // dashCount 
+                if (playerMovementState == eMovementState.Dashing)
             {
                 dashCount--;
             }
@@ -405,7 +412,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Making player walk at the moveSpeed variable
-        if (playerMovementState != eMovementState.Dashing /* && playerAerialState != eAerialState.WallPushing*/)
+        if (playerMovementState != eMovementState.Dashing && playerMovementState  != eMovementState.WallClinging /* && playerAerialState != eAerialState.WallPushing*/)
         {
                 Move(
                     new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
