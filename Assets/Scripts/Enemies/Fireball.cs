@@ -18,7 +18,7 @@ public class Fireball : MonoBehaviour
 
         if (lifetime <= 0)
         {
-            Destroy(gameObject);
+            Fizzle();
         }
     }
 
@@ -27,5 +27,20 @@ public class Fireball : MonoBehaviour
         this.damage = damage;
         this.direction = direction;
         this.lifetime = lifetime;
+    }
+
+    private void Fizzle()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(GameConstants.PLAYER_TAG))
+        {
+            PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+            player.TakeDamage(damage);
+            Fizzle();
+        }
     }
 }
