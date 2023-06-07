@@ -1437,6 +1437,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &745048493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5012780671882653177, guid: 7975f3a56081f4d33b576299c7de74f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1099660662}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &745048494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745048493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5524db4782be344139de5fa78cce611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 20
+  attackDuration: 2
+  fireball: {fileID: 4039649134420833365, guid: 3db8945cdd74c4abebe34f47955b76c1,
+    type: 3}
+  shouldAttack: 1
+  fireballLifetime: 1
 --- !u!1001 &754984376
 PrefabInstance:
   m_ObjectHideFlags: 0
