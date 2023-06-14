@@ -1360,7 +1360,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.415126, y: 1}
+    m_SensorSize: {x: 2.9469388, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1456,12 +1456,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  damage: 20
+  damage: 4
   attackDuration: 2
   fireball: {fileID: 4039649134420833365, guid: 3db8945cdd74c4abebe34f47955b76c1,
     type: 3}
   shouldAttack: 1
-  fireballLifetime: 1
+  fireballLifetime: 3
+  fireballDelay: 0.8
+  shouldTrackPlayer: 0
 --- !u!1001 &754984376
 PrefabInstance:
   m_ObjectHideFlags: 0
