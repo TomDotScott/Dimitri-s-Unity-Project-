@@ -1463,7 +1463,7 @@ MonoBehaviour:
   shouldAttack: 1
   fireballLifetime: 3
   fireballDelay: 0.8
-  shouldTrackPlayer: 0
+  shouldTrackPlayer: 1
 --- !u!1001 &754984376
 PrefabInstance:
   m_ObjectHideFlags: 0
