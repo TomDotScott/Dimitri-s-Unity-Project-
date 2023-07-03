@@ -5,13 +5,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
     public List<GameObject> respawnPoints;
     public List<GameObject> lavaRespawnPoints;
     public PlayerScript player;
     public Slider healthBar;
+    public static GameManager GetInstance()
+    {
+        return instance;
+    }
 
     // Start is called before the first frame update
     void Start(){
+        if (instance == null)
+        {
+            instance = this;
+        }
         player = GameObject.FindObjectOfType<PlayerScript>();
         UpdateHealthBar();
     }
@@ -49,6 +58,11 @@ public class GameManager : MonoBehaviour
 
     void UpdateHealthBar(){
     healthBar.value = player.GetPlayerHealth() / player.GetMaxPlayerHealth();
+    }
+
+    public Vector3 getPlayerPosition()
+    {
+        return player.transform.position;
     }
 
     Vector2 FindNearestLavaRespawnPoint(){
