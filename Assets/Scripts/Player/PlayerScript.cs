@@ -368,6 +368,8 @@ public class PlayerScript : MonoBehaviour
                             rb.velocity = wallPushAwayValue;
                         }
 
+                    onWall = false; 
+
                         playerAerialState = eAerialState.WallPushing;
                         rb.gravityScale = fallSpeed;
                     }
