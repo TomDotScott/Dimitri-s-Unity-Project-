@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,15 +44,8 @@ public class GameManager : MonoBehaviour
 #endif
 
         UpdateHealthBar();
-        if (player.TouchingLava){
-            player.Teleport(FindNearestLavaRespawnPoint());
-            player.SetAirState(PlayerScript.eAerialState.Grounded);
-            player.TouchingLava = false;
-        } else if (player.TouchingSpike)
-        {
-            player.Teleport(FindNearestLavaRespawnPoint());
-            player.SetAirState(PlayerScript.eAerialState.Grounded);
-            player.TouchingSpike = false;
+        if (player.TouchingLava || player.TouchingSpike){
+            RespawnPlayer();
         }
     }
 
@@ -69,6 +63,21 @@ public class GameManager : MonoBehaviour
         // TODO: ACTUALLY IMPLEMENT THIS
         return lavaRespawnPoints[0].transform.position;
 
+    }
+
+    public IEnumerator OnPlayerDeath()
+    {
+        yield return new WaitForSeconds(0.25f);
+        RespawnPlayer();
+    }
+
+    private void RespawnPlayer()
+    {
+        player.Teleport(FindNearestLavaRespawnPoint());
+        player.SetAirState(PlayerScript.eAerialState.Grounded);
+        player.TouchingSpike = false;
+        player.TouchingLava = false;
+        player.IsPlayerDead = false;
     }
 }
 

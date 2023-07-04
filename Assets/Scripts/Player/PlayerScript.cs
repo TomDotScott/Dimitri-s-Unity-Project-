@@ -129,8 +129,24 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public bool IsPlayerDead {
+        get => isPlayerDead;
+        set
+        {
+            if (value == true) {
+                rb.gravityScale = 0;
+            }
+            else
+            {
+                rb.gravityScale = fallSpeed;
+            }
+
+            isPlayerDead = value;
+        }
+    }
+
     // Establishing death
-    [SerializeField] private bool isPlayerDead;
+    private bool isPlayerDead;
     #endregion
 
     private bool beastMode;
@@ -151,7 +167,7 @@ public class PlayerScript : MonoBehaviour
 
         onTopOfWall = false;
         currentHealthValue = totalHealthValue;
-        isPlayerDead = false;
+        IsPlayerDead = false;
         takingDamage = false;
         beastMode = false;
         touchingLava = false;
@@ -163,6 +179,10 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsPlayerDead)
+        {
+            return;
+        }
         // Getting input for stuff later on...
 
         // TODO: Move all of these into a structure or class so Inputs are manageable in one place
@@ -659,14 +679,19 @@ public class PlayerScript : MonoBehaviour
     // Killing the player and triggering a respawn
     public void KillPlayer()
     {
-        isPlayerDead = true;
+        IsPlayerDead = true;
         dashCount = dashCountValue;
         currentHealthValue = totalHealthValue;
+        StartCoroutine(GameManager.GetInstance().OnPlayerDeath());
     }
 
     public void TakeDamage(float damageAmount)
     {
         currentHealthValue -= damageAmount;
+        if (currentHealthValue <= 0)
+        {
+            KillPlayer();
+        }
     }
 
     // Health Sacrifice Mechanic
