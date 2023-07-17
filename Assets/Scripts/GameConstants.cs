@@ -11,6 +11,7 @@ public static class GameConstants
     public static string WALL_TAG => "Wall";
 
     public static string ENEMY_LAYER => "Enemy";
+    public static string ENEMY_TAG => "Enemy";
 
     public static string LEFT_BUTTON => "Left";
 
