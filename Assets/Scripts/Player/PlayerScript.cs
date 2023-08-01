@@ -132,11 +132,13 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public bool IsPlayerDead {
+    public bool IsPlayerDead
+    {
         get => isPlayerDead;
         set
         {
-            if (value == true) {
+            if (value == true)
+            {
                 rb.gravityScale = 0;
             }
             else
@@ -298,9 +300,9 @@ public class PlayerScript : MonoBehaviour
                 }
             }
 
-                // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
-                // dashCount 
-                if (playerMovementState == eMovementState.Dashing)
+            // After taking in all the inputs, determine if we have dashed. If we have, subtract one from the 
+            // dashCount 
+            if (playerMovementState == eMovementState.Dashing)
             {
                 dashCount--;
             }
@@ -370,51 +372,51 @@ public class PlayerScript : MonoBehaviour
         #region MOVEMENT_CODE
         if (onWall)
         {
-                if (jumpButtonPressed)
+            if (jumpButtonPressed)
+            {
+                if (upButtonHeld && canClimb)
                 {
-                    if (upButtonHeld && canClimb)
-                    {
-                        // playerAerialState = eAerialState.WallPushing;
-                        rb.velocity = new Vector2(rb.velocity.x, wallPushUpValue);
-                    }
-
-                    else
-                    {
-
-                        // This is what pushes us off the wall
-                        if (facingDirection == FacingDirection.Right)
-                        {
-                            rb.velocity = wallPushAwayValue * new Vector2(-1, 1);
-                        }
-                        else
-                        {
-                            rb.velocity = wallPushAwayValue;
-                        }
-
-                    onWall = false; 
-
-                        playerAerialState = eAerialState.WallPushing;
-                        rb.gravityScale = fallSpeed;
-                    }
+                    // playerAerialState = eAerialState.WallPushing;
+                    rb.velocity = new Vector2(rb.velocity.x, wallPushUpValue);
                 }
 
                 else
                 {
-                    float verticalMovementValue = 0f;
-                    if (upButtonHeld && canClimb)
+
+                    // This is what pushes us off the wall
+                    if (facingDirection == FacingDirection.Right)
                     {
-                        verticalMovementValue += 1f;
+                        rb.velocity = wallPushAwayValue * new Vector2(-1, 1);
+                    }
+                    else
+                    {
+                        rb.velocity = wallPushAwayValue;
                     }
 
-                    if (downButtonHeld)
-                    {
-                        verticalMovementValue -= 1f;
-                    }
-                    rb.velocity = new Vector2(rb.velocity.x, verticalMovementValue * moveSpeed);
-                    rb.gravityScale = 0f;
-                    playerMovementState = eMovementState.WallClinging;
+                    onWall = false;
+
+                    playerAerialState = eAerialState.WallPushing;
+                    rb.gravityScale = fallSpeed;
                 }
             }
+
+            else
+            {
+                float verticalMovementValue = 0f;
+                if (upButtonHeld && canClimb)
+                {
+                    verticalMovementValue += 1f;
+                }
+
+                if (downButtonHeld)
+                {
+                    verticalMovementValue -= 1f;
+                }
+                rb.velocity = new Vector2(rb.velocity.x, verticalMovementValue * moveSpeed);
+                rb.gravityScale = 0f;
+                playerMovementState = eMovementState.WallClinging;
+            }
+        }
         else
         {
             if (rb.gravityScale == 0 && canClimb)
@@ -437,12 +439,12 @@ public class PlayerScript : MonoBehaviour
 
 
         // Making player walk at the moveSpeed variable
-        if (playerMovementState != eMovementState.Dashing && playerMovementState  != eMovementState.WallClinging /* && playerAerialState != eAerialState.WallPushing*/)
+        if (playerMovementState != eMovementState.Dashing && playerMovementState != eMovementState.WallClinging /* && playerAerialState != eAerialState.WallPushing*/)
         {
-                Move(
-                    new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
-                    new InputButton(rightButtonPressed, rightButtonHeld, rightButtonReleased)
-                );
+            Move(
+                new InputButton(leftButtonPressed, leftButtonHeld, leftButtonReleased),
+                new InputButton(rightButtonPressed, rightButtonHeld, rightButtonReleased)
+            );
         }
         else if (playerMovementState == eMovementState.Dashing)
         {
@@ -558,7 +560,7 @@ public class PlayerScript : MonoBehaviour
                 facingDirection = FacingDirection.Right;
             }
             rb.velocity = new Vector2((int)facingDirection * moveSpeed, rb.velocity.y);
-            
+
 
             // Step 5 - Flip the sprite depending on the direction we decided to go
             if (rb.velocity.x < 0)
@@ -596,7 +598,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         return direction;
-        
+
     }
 
     // Dash function
@@ -706,7 +708,7 @@ public class PlayerScript : MonoBehaviour
             return true;
         }
 
-        return false; 
+        return false;
     }
 
     public float GetPlayerHealth()
@@ -721,7 +723,7 @@ public class PlayerScript : MonoBehaviour
 
     public void ResetSwordAnimation()
     {
-        sword.Reset();
+        sword.ResetAnimations();
     }
 
     public FacingDirection GetFacingDirection()
@@ -793,7 +795,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     if (onTopOfWall && playerAerialState != eAerialState.Jumping)
                     {
-                           playerAerialState = eAerialState.Falling;
+                        playerAerialState = eAerialState.Falling;
                     }
                     onWall = false;
                     onTopOfWall = false;

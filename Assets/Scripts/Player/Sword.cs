@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    private List <EnemyBase> enemiesHit;
+    private List<EnemyBase> enemiesHit;
     [SerializeField] private Animator animator;
     private bool isAttacking = false;
-    public void Reset()
+    public void ResetAnimations()
     {
         isAttacking = false;
-        animator.SetTrigger(GameConstants.IDLE);
+
+        animator.SetTrigger(GameConstants.IDLE_ANIMATION);
+        animator.SetBool(GameConstants.ATTACK_FORWARDS_ANIMATION, false);
+        animator.SetBool(GameConstants.ATTACK_UPWARDS_ANIMATION, false);
     }
 
     // Start is called before the first frame update
@@ -24,7 +27,14 @@ public class Sword : MonoBehaviour
     {
         if (Input.GetButtonDown(GameConstants.ATTACK) && isAttacking == false)
         {
-            animator.SetBool("AttackForwards", true);
+            if (Input.GetButton(GameConstants.UP_BUTTON))
+            {
+                animator.SetBool(GameConstants.ATTACK_UPWARDS_ANIMATION, true);
+            }
+            else if (Input.GetButton(GameConstants.LEFT_BUTTON) || Input.GetButton(GameConstants.RIGHT_BUTTON))
+            {
+                animator.SetBool(GameConstants.ATTACK_FORWARDS_ANIMATION, true);
+            }
         }
     }
 

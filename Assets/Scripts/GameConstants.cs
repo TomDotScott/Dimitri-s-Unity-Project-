@@ -11,6 +11,7 @@ public static class GameConstants
     public static string WALL_TAG => "Wall";
 
     public static string ENEMY_LAYER => "Enemy";
+
     public static string ENEMY_TAG => "Enemy";
 
     public static string LEFT_BUTTON => "Left";
@@ -35,5 +36,9 @@ public static class GameConstants
 
     public static string ATTACK => "Attack";
 
-    public static string IDLE => "Idle";
+    public static string IDLE_ANIMATION => "Idle";
+
+    public static string ATTACK_FORWARDS_ANIMATION => "AttackForwards";
+
+    public static string ATTACK_UPWARDS_ANIMATION => "AttackUpwards";
 }
