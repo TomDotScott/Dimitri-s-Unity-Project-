@@ -1223,6 +1223,7 @@ GameObject:
   - component: {fileID: 578041484}
   - component: {fileID: 578041485}
   - component: {fileID: 578041486}
+  - component: {fileID: 578041487}
   m_Layer: 11
   m_Name: Sword Slash
   m_TagString: Untagged
@@ -1323,6 +1324,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &578041487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578041483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d7bd77c6a454f069a31ccca1227425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 830207676}
 --- !u!1 &578578507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1485,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7783018, y: 1}
+    m_SensorSize: {x: 3.4077182, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1973,6 +1987,7 @@ MonoBehaviour:
     m_Bits: 4096
   dashCount: 1
   dashCountValue: 1
+  sword: {fileID: 578041487}
   playerMovementState: 0
   playerAerialState: 0
   wallPushAwayValue: {x: 15, y: 32.5}

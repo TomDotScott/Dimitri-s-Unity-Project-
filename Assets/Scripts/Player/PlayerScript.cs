@@ -50,6 +50,9 @@ public class PlayerScript : MonoBehaviour
     private bool onWall;
     private bool canClimb = true;
 
+    // Sword Stuff
+    [SerializeField] private Sword sword;
+
     #endregion
 
     // Used to list abilities
@@ -714,6 +717,11 @@ public class PlayerScript : MonoBehaviour
     public float GetMaxPlayerHealth()
     {
         return totalHealthValue;
+    }
+
+    public void ResetSwordAnimation()
+    {
+        sword.Reset();
     }
 
     public FacingDirection GetFacingDirection()

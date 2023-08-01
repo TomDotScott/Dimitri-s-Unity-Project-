@@ -34,4 +34,6 @@ public static class GameConstants
     public static string GRAPPLE => "Grapple";
 
     public static string ATTACK => "Attack";
+
+    public static string IDLE => "Idle";
 }
