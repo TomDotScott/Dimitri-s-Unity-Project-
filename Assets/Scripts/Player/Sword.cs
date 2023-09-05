@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : MonoBehaviour
-{
-    private List<EnemyBase> enemiesHit;
+{       
     [SerializeField] private Animator animator;
     private bool isAttacking = false;
     public void ResetAnimations()
@@ -19,7 +18,7 @@ public class Sword : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemiesHit = new List<EnemyBase>();
+        
     }
 
     // Update is called once per frame
@@ -31,7 +30,7 @@ public class Sword : MonoBehaviour
             {
                 animator.SetBool(GameConstants.ATTACK_UPWARDS_ANIMATION, true);
             }
-            else if (Input.GetButton(GameConstants.LEFT_BUTTON) || Input.GetButton(GameConstants.RIGHT_BUTTON))
+            else
             {
                 animator.SetBool(GameConstants.ATTACK_FORWARDS_ANIMATION, true);
             }
