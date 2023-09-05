@@ -6,6 +6,7 @@ public class Sword : MonoBehaviour
 {       
     [SerializeField] private Animator animator;
     private bool isAttacking = false;
+    [SerializeField] private float swordDamage;
     public void ResetAnimations()
     {
         isAttacking = false;
@@ -39,9 +40,9 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // if (collision.gameObject.CompareTag(GameConstants.))
+        if (collision.gameObject.CompareTag(GameConstants.ENEMY_TAG))
         {
-
+            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(swordDamage);
         }
     }
 

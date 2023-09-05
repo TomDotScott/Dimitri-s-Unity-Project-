@@ -69,7 +69,11 @@ public class Spitfire : EnemyBase
 
     public override void TakeDamage(float incomingDamage)
     {
-        throw new System.NotImplementedException();
+        health -= incomingDamage;
+        if (health <= 0)
+        {
+            OnDeath();
+        }
     }
 
     protected override void Move()

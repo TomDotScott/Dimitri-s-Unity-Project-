@@ -23,4 +23,9 @@ public abstract class EnemyBase : MonoBehaviour
             return false;
         }
     }
+
+    protected void OnDeath()
+    {
+        Destroy(gameObject);
+    }
 }
