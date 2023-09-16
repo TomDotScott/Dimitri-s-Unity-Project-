@@ -13,7 +13,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected abstract void Move();
     protected bool isPlayerInRange()
     {
-        if (Vector3.Distance(transform.position, GameManager.GetInstance().getPlayerPosition()) <= maxPlayerDistance)
+        if (Vector3.Distance(transform.position, GameManager.GetInstance().GetPlayerPosition()) <= maxPlayerDistance)
         {
             return true; 
         }

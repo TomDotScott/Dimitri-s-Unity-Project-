@@ -38,11 +38,17 @@ public class Sword : MonoBehaviour
         }
     }
 
+    public float GetSwordDamage()
+    {
+        return swordDamage;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(GameConstants.ENEMY_TAG))
         {
             collision.gameObject.GetComponent<EnemyBase>().TakeDamage(swordDamage);
+            GameManager.GetInstance().GetPlayer().Heal(2);
         }
     }
 

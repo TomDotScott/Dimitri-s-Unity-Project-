@@ -54,9 +54,14 @@ public class GameManager : MonoBehaviour
     healthBar.value = player.GetPlayerHealth() / player.GetMaxPlayerHealth();
     }
 
-    public Vector3 getPlayerPosition()
+    public Vector3 GetPlayerPosition()
     {
         return player.transform.position;
+    }
+
+    public PlayerScript GetPlayer()
+    {
+        return player;
     }
 
     Vector2 FindNearestLavaRespawnPoint(){

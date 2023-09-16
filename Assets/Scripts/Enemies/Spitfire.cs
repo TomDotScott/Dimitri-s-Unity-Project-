@@ -24,7 +24,7 @@ public class Spitfire : EnemyBase
     {
         if (isPlayerInRange() && shouldTrackPlayer)
         {
-            if (transform.position.x > GameManager.GetInstance().getPlayerPosition().x)
+            if (transform.position.x > GameManager.GetInstance().GetPlayerPosition().x)
             {
                 shouldShootLeft = true; 
             }

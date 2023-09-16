@@ -699,6 +699,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void Heal(float healAmount)
+    {
+        currentHealthValue += healAmount;
+        currentHealthValue = Mathf.Clamp(currentHealthValue, 0, totalHealthValue);
+    }
+
     // Health Sacrifice Mechanic
     public bool Sacrifice(float healthSacrificeAmount)
     {
@@ -774,14 +780,18 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case "Enemy":
-                Debug.Log("Enemy Collision Detected");
-                if (isIntangible == false)
+                if (collision.GetContact(0).otherCollider.gameObject.name == gameObject.name)
                 {
-                    TakeDamage(totalHealthValue / 10f);
 
+
+                    Debug.Log("Enemy Collision Detected");
+                    if (isIntangible == false)
+                    {
+                        TakeDamage(totalHealthValue / 10f);
+
+                    }
                 }
-
-                break;
+                    break;
         }
     }
 
