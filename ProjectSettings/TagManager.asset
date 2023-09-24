@@ -10,6 +10,7 @@ TagManager:
   - Lava
   - Roof of Wall
   - Spike
+  - Kill Box
   layers:
   - Default
   - TransparentFX
