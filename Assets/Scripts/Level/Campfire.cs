@@ -13,6 +13,7 @@ public class Campfire : MonoBehaviour
             PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
             player.FullHeal();
             withinCampfireRadius = true;
+            GameManager.GetInstance().SetCampfireRespawnPosition(transform.position);
         }
     }
 }

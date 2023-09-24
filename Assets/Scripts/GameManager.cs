@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
+    Vector3 campfireRespawnPosition;
+
     // Start is called before the first frame update
     void Start(){
         if (instance == null)
@@ -24,6 +26,11 @@ public class GameManager : MonoBehaviour
         }
         player = GameObject.FindObjectOfType<PlayerScript>();
         UpdateHealthBar();
+    }
+
+    public void SetCampfireRespawnPosition(Vector3 position)
+    {
+        campfireRespawnPosition = position;
     }
 
     // Update is called once per frame
@@ -45,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         UpdateHealthBar();
         if (player.TouchingLava || player.TouchingSpike){
-            RespawnPlayer();
+            RespawnPlayer(FindNearestLavaRespawnPoint());
         }
     }
 
@@ -73,12 +80,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator OnPlayerDeath()
     {
         yield return new WaitForSeconds(0.25f);
-        RespawnPlayer();
+        RespawnPlayer(campfireRespawnPosition);
     }
 
-    private void RespawnPlayer()
+    private void RespawnPlayer(Vector3 respawnPosition)
     {
-        player.Teleport(FindNearestLavaRespawnPoint());
+        player.Teleport(respawnPosition);
         player.SetAirState(PlayerScript.eAerialState.Grounded);
         player.TouchingSpike = false;
         player.TouchingLava = false;

@@ -742,6 +742,7 @@ public class PlayerScript : MonoBehaviour
     // OnCollisionEnter is a Unity Event that gets called the first frame a collision happens between two objects.
     private void OnCollisionEnter2D(Collision2D collision) // Collision is an input for our function. It exists only in CollisionEnter2D, making it a local variable //
     {
+        Debug.Log("Stuck");
         // Switch-Case is like if-else but for SCOPED elements (i.e. things that can be immediately jumped to, like enum values, strings or integers)
         switch (collision.gameObject.tag)
         {
